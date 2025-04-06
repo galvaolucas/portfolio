@@ -1,16 +1,16 @@
 import type React from "react";
-import { TopBar } from "./TopBar";
 import { Name } from "./Name";
 import { AboutMe } from "./AboutMe";
+import { TechnologiesList } from "./TechnologiesCard";
 
 export const Home = (): React.ReactElement => {
   return (
-    <div className="flex flex-col gap-16">
-        <TopBar />
-      <div className="flex flex-row justify-between">
+    <div className="relative flex flex-col gap-16 overflow-hidden h-full">
+      <div className="flex flex-row items-center justify-between mt-24">
         <Name />
         <AboutMe />
       </div>
+      <TechnologiesList />
     </div>
   );
 };

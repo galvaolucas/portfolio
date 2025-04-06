@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 interface TButton {
@@ -8,6 +7,7 @@ interface TButton {
   variant?: "default" | "ghost";
   type?: "link" | "button";
   href?: string;
+  target?: React.HTMLAttributeAnchorTarget | undefined
 }
 
 export const Button = ({
@@ -17,6 +17,7 @@ export const Button = ({
   variant = "default",
   type = "button",
   href,
+  target = '_blank',
 }: TButton): React.ReactElement => {
   const base = "cursor-pointer relative overflow-hidden";
   const variants = {
@@ -30,7 +31,7 @@ export const Button = ({
         className={twMerge(base, className, variants[variant])}
         onClick={onClick}
       >
-        <a href={href} target="_blank">
+        <a href={href} target={target}>
           {label}
         </a>
       </button>

@@ -1,0 +1,21 @@
+export const TECH_LOGOS = [
+  { name: "Typescript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
+  { name: "Node.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
+  { name: "React", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
+  { name: "React Native", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
+  { name: "AWS", logo: "https://img.icons8.com/material-rounded/24/FFFFFF/amazon-web-services.png" },
+  { name: "Google Cloud Platform", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg" },
+  { name: "PostgreSQL", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" },
+  { name: "MongoDB", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
+  { name: "Javascript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" },
+  { name: "Python", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
+  { name: "NestJS", logo: "https://nestjs.com/img/logo-small.svg" },
+  { name: "TypeORM", logo: "https://user-images.githubusercontent.com/30929568/112730670-de09a480-8f58-11eb-9875-0d9ebb87fbd6.png" },
+  { name: "GitHub", logo: "https://img.icons8.com/ios/50/FFFFFF/github--v1.png" },
+  { name: "Next.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
+  { name: "Chakra UI", logo: "https://img.icons8.com/color/48/chakra-ui.png" },
+  { name: "ShadCN UI", logo: "https://avatars.githubusercontent.com/u/139895814?s=200&v=4" },
+  { name: "Material UI", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/materialui/materialui-original.svg" },
+  { name: "Mantine UI", logo: "https://images.seeklogo.com/logo-png/44/2/mantine-logo-png_seeklogo-443587.png" },
+  { name: "Tailwind CSS", logo: "https://img.icons8.com/color/48/tailwind_css.png" }
+];

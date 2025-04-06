@@ -38,7 +38,7 @@ export const Name = (): React.ReactElement => {
 
   return (
     <div className="flex flex-col gap-8">
-      <div className="leading-8 min-h-48">
+      <div className="leading-8 min-h-52">
         <span className="text-8xl">{firstNameText}</span>
         <br />
         <span className="text-8xl">{lastNameText}</span>
