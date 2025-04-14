@@ -1,12 +1,7 @@
-import { Home } from "./components/Home";
-import { Layout } from "./components/ui/layout";
+import { Page } from "./components/Page";
 
 function App() {
-  return (
-    <Layout>
-      <Home />
-    </Layout>
-  );
+  return <Page />;
 }
 
 export default App;

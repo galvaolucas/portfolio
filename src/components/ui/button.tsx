@@ -5,9 +5,6 @@ interface TButton {
   onClick?: () => void;
   className?: string;
   variant?: "default" | "ghost";
-  type?: "link" | "button";
-  href?: string;
-  target?: React.HTMLAttributeAnchorTarget | undefined
 }
 
 export const Button = ({
@@ -15,35 +12,19 @@ export const Button = ({
   onClick,
   label,
   variant = "default",
-  type = "button",
-  href,
-  target = '_blank',
 }: TButton): React.ReactElement => {
-  const base = "cursor-pointer relative overflow-hidden";
+  const base = "cursor-pointer relative overflow-hidden font-medium";
   const variants = {
-    default: "",
-    ghost: "bg-transparent text-white",
+    default: "bg-purple-800 text-white p-2 px-4 rounded-full hover:bg-purple-600 active:bg-purple-600 transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-102",
+    ghost: "bg-transparent text-white before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-white before:transition-all before:duration-300 hover:before:w-full",
   };
 
-  if (type === "link") {
-    return (
-      <button
-        className={twMerge(base, className, variants[variant])}
-        onClick={onClick}
-      >
-        <a href={href} target={target}>
-          {label}
-        </a>
-      </button>
-    );
-  }
   return (
     <button
       className={twMerge(
         base,
         className,
         variants[variant],
-        "before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-0 before:bg-white before:transition-all before:duration-300 hover:before:w-full"
       )}
       onClick={onClick}
     >

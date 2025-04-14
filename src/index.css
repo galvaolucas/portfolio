@@ -1,16 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  font-family: Rubik, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -18,7 +18,18 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+@theme {
+  --font-anton: Anton, sans-serif;
+  --color-dark-purple: #161032;
+  --color-light-purple: #8D7BDC;
+  --color-dark-background: #101010;
+  --color-night: #171614;
+  --color-penn-blue: #111344;
+  --color-space-cadet: #2E294E;
+}
+
 .line-grow-animation {
   width: 50%;
   transition: width 1s ease-in-out;
 }
+

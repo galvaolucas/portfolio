@@ -18,9 +18,11 @@ export const TechnologiesCard = ({
 
 export const TechnologiesList = (): React.ReactElement => {
   const sortedList = TECH_LOGOS.sort((a, b) => a.name.localeCompare(b.name));
-  const list = [...sortedList, ...sortedList];
+  const random = Math.random() * 100;
+  const items = [...sortedList, ...sortedList];
+  const list = random % 2 === 0 ? items : items.reverse();
   return (
-    <div className="absolute bottom-0 w-full overflow-hidden">
+    <div className="absolute bottom-2 w-full overflow-hidden">
       <motion.div
         className="flex flex-row w-max gap-4"
         animate={{ x: ["-100%", "0%"] }}
