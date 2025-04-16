@@ -1,9 +1,8 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useExperience } from "@/hooks/useExperience";
 import { WORK_EXPERIENCE } from "@/constants/constants";
 import { twMerge } from "tailwind-merge";
 import { Briefcase, CalendarClock } from "lucide-react";
-import { Stack } from "./Stack";
 
 export type IWorkExperienceKey =
   | "INSTACASA"
@@ -18,48 +17,56 @@ export const Experience = (): React.ReactElement => {
 
   const colors = {
     INSTACASA: "#708BF8",
-    CARTER_LABS: "#d0e",
-    INFO_SISTEMAS: "#f08",
-    FIX_IT: "#91f",
-    FIX_IT_INTERN: "#1e75f7",
+    CARTER_LABS: "#8A2BE2",
+    INFO_SISTEMAS: "#FBBB00",
+    FIX_IT: "#9835D1",
+    FIX_IT_INTERN: "#9835D1",
   };
 
   return (
     <>
       <div className="flex flex-row pt-20 items-start justify-center gap-16 w-full h-full">
-        <div className="text-8xl font-anton text-isabelline">
+        <div className="flex h-full items-center text-8xl font-anton text-isabelline">
           WORK <br /> EXPERIENCE
         </div>
         <div className="w-180 h-150 text-feint-text flex flex-col gap-2 font-medium">
           <Panel>
-            <div className="space-y-8">
-              <div className="flex flex-col gap-1">
-                <div className="font-semibold flex flex-row gap-2 items-center text-lg">
-                  <div
-                    className="rounded-full w-4 h-4"
-                    style={{ backgroundColor: colors[experienceCard] }}
-                  ></div>
-                  {WORK_EXPERIENCE[experienceCard].jobTitle}
+            <AnimatePresence>
+              <motion.div
+                key={experienceCard}
+                className="space-y-8"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+              >
+                <div className="flex flex-col gap-1">
+                  <div className="font-semibold flex flex-row gap-2 items-center text-lg">
+                    <div
+                      className="rounded-full w-4 h-4"
+                      style={{ backgroundColor: colors[experienceCard] }}
+                    ></div>
+                    {WORK_EXPERIENCE[experienceCard].jobTitle}
+                  </div>
+                  <div className="border border-t-0 border-b-[0.5px] border-gray-500"></div>
                 </div>
-                <div className="border border-t-0 border-b-[0.5px] border-gray-500"></div>
-              </div>
 
-              <div className="text-gray-500 text-sm flex flex-row gap-2 items-start">
-                <CalendarClock style={{ color: colors[experienceCard] }} />
-                {WORK_EXPERIENCE[experienceCard].date}
-              </div>
-              <div className="text-gray-500 text-sm flex flex-row gap-2 items-start text-justify">
-                <div>
-                  <Briefcase style={{ color: colors[experienceCard] }} />
+                <div className="text-gray-500 text-sm flex flex-row gap-2 items-start">
+                  <CalendarClock style={{ color: colors[experienceCard] }} />
+                  {WORK_EXPERIENCE[experienceCard].date}
                 </div>
-                {WORK_EXPERIENCE[experienceCard].description.join(" ")}
-              </div>
-              <div className="flex flex-row flex-wrap gap-2 justify-center">
-                {WORK_EXPERIENCE[experienceCard].stack.map((item, index) => (
-                  <Pill name={item} key={`pill_${index}`} />
-                ))}
-              </div>
-            </div>
+                <div className="text-gray-500 text-sm flex flex-row gap-2 items-start text-justify">
+                  <div>
+                    <Briefcase style={{ color: colors[experienceCard] }} />
+                  </div>
+                  {WORK_EXPERIENCE[experienceCard].description.join(" ")}
+                </div>
+                <div className="flex flex-row flex-wrap gap-2 justify-center">
+                  {WORK_EXPERIENCE[experienceCard].stack.map((item, index) => (
+                    <Pill name={item} key={`pill_${index}`} />
+                  ))}
+                </div>
+              </motion.div>
+            </AnimatePresence>
           </Panel>
           <div className="flex flex-row items-center justify-center gap-1 p-2 rounded-md bg-layer-transparent border border-border-default">
             {Object.values(WORK_EXPERIENCE).map((item, index) => (
@@ -84,8 +91,8 @@ const Pill = ({ name }: { name: string }): React.ReactElement => {
     <div className="py-2 px-4 text-xs rounded-full bg-pill-background text-pill-text">
       {name}
     </div>
-  )
-}
+  );
+};
 
 const Panel = ({
   children,
