@@ -1,5 +1,5 @@
 import { Github, Linkedin } from "lucide-react";
-import { Link } from "./ui/link";
+import { Link } from "./ui/Link";
 
 export const TopBar = (): React.ReactElement => {
   return (
