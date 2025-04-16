@@ -16,7 +16,7 @@ export const Page = (): React.ReactElement => {
 
   return (
     <div className="h-screen overflow-y-scroll snap-y snap-proximity scroll-smooth">
-      <BaseSection id='home' className="relative bg-black">
+      <BaseSection id="home" className="relative bg-black">
         <>
           <div
             className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
@@ -32,17 +32,19 @@ export const Page = (): React.ReactElement => {
           </div>
         </>
       </BaseSection>
-      <div style={{ opacity: showLoading ? 0 : 1 }}>
-      <BaseSection id='stack' className="bg-black">
-        <Stack />
-      </BaseSection>
-      <BaseSection className="bg-black" id='experience' >
-        <Experience />
-      </BaseSection>
-      <BaseSection className="bg-black" id='getintouch' >
-        <GetInTouch />
-      </BaseSection>
-      </div>
+      {!showLoading && (
+        <>
+          <BaseSection id="stack" className="bg-black">
+            <Stack />
+          </BaseSection>
+          <BaseSection className="bg-black" id="experience">
+            <Experience />
+          </BaseSection>
+          <BaseSection className="bg-black" id="getintouch">
+            <GetInTouch />
+          </BaseSection>
+        </>
+      )}
     </div>
   );
 };
@@ -52,7 +54,7 @@ const BaseSection = ({
   children,
   className,
 }: {
-  id: string,
+  id: string;
   children: React.ReactElement;
   className?: string;
 }): React.ReactElement => {
