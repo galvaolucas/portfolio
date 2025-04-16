@@ -1,19 +1,15 @@
+import { WORK_EXPERIENCE } from "@/constants/constants";
 import { useState } from "react";
 
-type IWorkExperienceKey =
-  | 'instacasa'
-  | 'carter-labs'
-  | 'info-sistemas'
-  | 'fix-it'
-  | 'fix-it-intern';
+export type IWorkExperienceKey = keyof typeof WORK_EXPERIENCE
 
 interface IUseExperience {
-  experienceCard: IWorkExperienceKey | null;
-  setExperienceCard: (arg: IWorkExperienceKey | null) => void;
+  experienceCard: IWorkExperienceKey;
+  setExperienceCard: (arg: IWorkExperienceKey) => void;
 }
 
 export const useExperience = (): IUseExperience => {
-  const [experienceCard, setExperienceCard] = useState<IWorkExperienceKey | null>(null);
+  const [experienceCard, setExperienceCard] = useState<IWorkExperienceKey>('INSTACASA');
 
   return { experienceCard, setExperienceCard };
 }

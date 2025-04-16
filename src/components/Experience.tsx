@@ -1,151 +1,143 @@
-import { Code } from "lucide-react";
-import { motion } from "framer-motion";
-import { WORK_EXPERIENCE } from "@/constants/constants";
+import { motion, AnimatePresence } from "framer-motion";
 import { useExperience } from "@/hooks/useExperience";
+import { WORK_EXPERIENCE } from "@/constants/constants";
 import { twMerge } from "tailwind-merge";
-import { BaseLayout } from "./ui/BaseLayout";
-
-interface ITimelineItemProps {
-  jobTitle: string;
-  company: string;
-  companyUrl: string;
-  date: string;
-  location: string;
-  description: string[];
-  hovered: IWorkExperienceKey | null;
-  setHovered: (arg: IWorkExperienceKey | null) => void;
-  identifier: IWorkExperienceKey;
-}
+import { Briefcase, CalendarClock } from "lucide-react";
+import { Stack } from "./Stack";
 
 export type IWorkExperienceKey =
-  | "instacasa"
-  | "carter-labs"
-  | "info-sistemas"
-  | "fix-it"
-  | "fix-it-intern";
+  | "INSTACASA"
+  | "CARTER_LABS"
+  | "INFO_SISTEMAS"
+  | "FIX_IT"
+  | "FIX_IT_INTERN";
 
 export const Experience = (): React.ReactElement => {
   const { experienceCard, setExperienceCard } = useExperience();
+  const keys = Object.keys(WORK_EXPERIENCE);
+
+  const colors = {
+    INSTACASA: "#708BF8",
+    CARTER_LABS: "#d0e",
+    INFO_SISTEMAS: "#f08",
+    FIX_IT: "#91f",
+    FIX_IT_INTERN: "#1e75f7",
+  };
+
   return (
-    <BaseLayout>
-      <motion.div
-        className="flex flex-col gap-4 pt-8"
-        initial={{ opacity: 0, y: 25 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2, ease: "easeInOut" }}
-      >
-        <TimelineItem
-          identifier={WORK_EXPERIENCE.INSTACASA.key as IWorkExperienceKey}
-          jobTitle={WORK_EXPERIENCE.INSTACASA.jobTitle}
-          company={WORK_EXPERIENCE.INSTACASA.company}
-          companyUrl={WORK_EXPERIENCE.INSTACASA.companyUrl}
-          date={WORK_EXPERIENCE.INSTACASA.date}
-          location={WORK_EXPERIENCE.INSTACASA.location}
-          description={WORK_EXPERIENCE.INSTACASA.description}
-          hovered={experienceCard}
-          setHovered={setExperienceCard}
-        />
-        <TimelineItem
-          identifier={WORK_EXPERIENCE.CARTER_LABS.key as IWorkExperienceKey}
-          jobTitle={WORK_EXPERIENCE.CARTER_LABS.jobTitle}
-          company={WORK_EXPERIENCE.CARTER_LABS.company}
-          companyUrl={WORK_EXPERIENCE.CARTER_LABS.companyUrl}
-          date={WORK_EXPERIENCE.CARTER_LABS.date}
-          location={WORK_EXPERIENCE.CARTER_LABS.location}
-          description={WORK_EXPERIENCE.CARTER_LABS.description}
-          hovered={experienceCard}
-          setHovered={setExperienceCard}
-        />
-        <TimelineItem
-          identifier={WORK_EXPERIENCE.INFO_SISTEMAS.key as IWorkExperienceKey}
-          jobTitle={WORK_EXPERIENCE.INFO_SISTEMAS.jobTitle}
-          company={WORK_EXPERIENCE.INFO_SISTEMAS.company}
-          companyUrl={WORK_EXPERIENCE.INFO_SISTEMAS.companyUrl}
-          date={WORK_EXPERIENCE.INFO_SISTEMAS.date}
-          location={WORK_EXPERIENCE.INFO_SISTEMAS.location}
-          description={WORK_EXPERIENCE.INFO_SISTEMAS.description}
-          hovered={experienceCard}
-          setHovered={setExperienceCard}
-        />
-        <TimelineItem
-          identifier={WORK_EXPERIENCE.FIX_IT.key as IWorkExperienceKey}
-          jobTitle={WORK_EXPERIENCE.FIX_IT.jobTitle}
-          company={WORK_EXPERIENCE.FIX_IT.company}
-          companyUrl={WORK_EXPERIENCE.FIX_IT.companyUrl}
-          date={WORK_EXPERIENCE.FIX_IT.date}
-          location={WORK_EXPERIENCE.FIX_IT.location}
-          description={WORK_EXPERIENCE.FIX_IT.description}
-          hovered={experienceCard}
-          setHovered={setExperienceCard}
-        />
-        <TimelineItem
-          identifier={WORK_EXPERIENCE.FIX_IT_INTERN.key as IWorkExperienceKey}
-          jobTitle={WORK_EXPERIENCE.FIX_IT_INTERN.jobTitle}
-          company={WORK_EXPERIENCE.FIX_IT_INTERN.company}
-          companyUrl={WORK_EXPERIENCE.FIX_IT_INTERN.companyUrl}
-          date={WORK_EXPERIENCE.FIX_IT_INTERN.date}
-          location={WORK_EXPERIENCE.FIX_IT_INTERN.location}
-          description={WORK_EXPERIENCE.FIX_IT_INTERN.description}
-          hovered={experienceCard}
-          setHovered={setExperienceCard}
-        />
-      </motion.div>
-    </BaseLayout>
+    <>
+      <div className="flex flex-row pt-20 items-start justify-center gap-16 w-full h-full">
+        <div className="text-8xl font-anton text-isabelline">
+          WORK <br /> EXPERIENCE
+        </div>
+        <div className="w-180 h-150 text-feint-text flex flex-col gap-2 font-medium">
+          <Panel>
+            <div className="space-y-8">
+              <div className="flex flex-col gap-1">
+                <div className="font-semibold flex flex-row gap-2 items-center text-lg">
+                  <div
+                    className="rounded-full w-4 h-4"
+                    style={{ backgroundColor: colors[experienceCard] }}
+                  ></div>
+                  {WORK_EXPERIENCE[experienceCard].jobTitle}
+                </div>
+                <div className="border border-t-0 border-b-[0.5px] border-gray-500"></div>
+              </div>
+
+              <div className="text-gray-500 text-sm flex flex-row gap-2 items-start">
+                <CalendarClock style={{ color: colors[experienceCard] }} />
+                {WORK_EXPERIENCE[experienceCard].date}
+              </div>
+              <div className="text-gray-500 text-sm flex flex-row gap-2 items-start text-justify">
+                <div>
+                  <Briefcase style={{ color: colors[experienceCard] }} />
+                </div>
+                {WORK_EXPERIENCE[experienceCard].description.join(" ")}
+              </div>
+              <div className="flex flex-row flex-wrap gap-2 justify-center">
+                {WORK_EXPERIENCE[experienceCard].stack.map((item, index) => (
+                  <Pill name={item} key={`pill_${index}`} />
+                ))}
+              </div>
+            </div>
+          </Panel>
+          <div className="flex flex-row items-center justify-center gap-1 p-2 rounded-md bg-layer-transparent border border-border-default">
+            {Object.values(WORK_EXPERIENCE).map((item, index) => (
+              <Tabs
+                key={`tab_${index}`}
+                name={item.company}
+                color={Object.values(colors)[index]}
+                identifier={keys[index] as IWorkExperienceKey}
+                selected={experienceCard as IWorkExperienceKey}
+                setSelected={setExperienceCard}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
 
-const TimelineItem = ({
-  jobTitle,
-  company,
-  date,
-  location,
-  description,
-  companyUrl,
+const Pill = ({ name }: { name: string }): React.ReactElement => {
+  return (
+    <div className="py-2 px-4 text-xs rounded-full bg-pill-background text-pill-text">
+      {name}
+    </div>
+  )
+}
+
+const Panel = ({
+  children,
+}: {
+  children: React.ReactElement;
+}): React.ReactElement => {
+  return (
+    <div className="w-full h-full border rounded-md p-4 border-border-default bg-layer-transparent/30">
+      {children}
+    </div>
+  );
+};
+
+const Tabs = ({
+  name,
+  color,
   identifier,
-  hovered,
-  setHovered,
-}: ITimelineItemProps): React.ReactElement => {
-  const isHovered = hovered === identifier;
+  selected,
+  setSelected,
+}: {
+  name: string;
+  color: string;
+  identifier: IWorkExperienceKey;
+  selected: IWorkExperienceKey;
+  setSelected: (arg: IWorkExperienceKey) => void;
+}): React.ReactElement => {
+  const isActive = identifier === selected;
 
   return (
-    <div
-      onMouseEnter={() => setHovered(identifier)}
-      onMouseLeave={() => setHovered(null)}
-      className={twMerge(
-        "flex flex-col gap-2 p-4 rounded-md cursor-pointer transition-colors duration-300 ease-in-out bg-gradient-to-r from-[#1a1a1a] to-purple-950",
-        isHovered && "bg-purple-500/10 border-purple-500"
-      )}
+    <motion.div
+      className="relative w-full rounded-md text-white flex items-center justify-center p-2 cursor-pointer overflow-hidden"
+      onClick={() => setSelected(identifier)}
+      whileTap={{ scale: 0.95 }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
     >
-      <div className="flex flex-row items-start gap-4">
-        <Code />
-        <div>
-          <h3 className="text-md font-semibold text-purple-400">{jobTitle}</h3>
-          <a
-            href={companyUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-semibold text-purple-300 text-sm hover:text-purple-400 transition-colors"
-          >
-            {company}
-          </a>
-          <p className="text-xs text-slate-500 italic">
-            {date}, {location}
-          </p>
-        </div>
-      </div>
+      {isActive && (
+        <motion.div
+          layoutId="tabsBackground"
+          className="absolute inset-0 rounded-md z-0"
+          style={{ backgroundColor: color }}
+          transition={{ type: "spring", stiffness: 400, damping: 30 }}
+        />
+      )}
 
-      <div
+      <span
         className={twMerge(
-          "overflow-hidden transition-all duration-300 ease-in-out",
-          isHovered ? "max-h-96 opacity-100 mt-2" : "max-h-0 opacity-0"
+          "relative z-10 transition-all ease-in-out font-medium",
+          isActive ? "text-white" : "text-feint-text"
         )}
       >
-        <ul className="list-disc text-sm flex flex-col gap-2 leading-6 text-slate-300 p-4 text-justify">
-          {description.map((desc, index) => (
-            <li key={index}>{desc}</li>
-          ))}
-        </ul>
-      </div>
-    </div>
+        {name}
+      </span>
+    </motion.div>
   );
 };

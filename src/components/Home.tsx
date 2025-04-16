@@ -1,5 +1,9 @@
 import type React from "react";
 import { useEffect, useState } from "react";
+import { Introducing } from "./Introducing";
+import { TopBar } from "./TopBar";
+import { Button } from "./ui/Button";
+import { ArrowRight } from "lucide-react";
 
 export const Home = (): React.ReactElement => {
   const [firstNameText, setFirstNameText] = useState<string>("");
@@ -34,10 +38,21 @@ export const Home = (): React.ReactElement => {
   }, []);
 
   return (
-    <div className="flex flex-col w-full h-full items-start justify-end font-anton p-8 text-white">
-      <span className="text-8xl">{firstNameText}</span>
-      <br />
-      <span className="text-8xl">{lastNameText}</span>
+    <div className="flex flex-col w-full h-full px-12 py-8 text-isabelline">
+      <TopBar />
+      <div className="w-full h-full flex items-center justify-end">
+        <Introducing />
+      </div>
+      <div className="flex flex-row items-end justify-between min-h-52">
+        <div>
+          <span className="text-8xl font-anton">{firstNameText}</span>
+          <br />
+          <span className="text-8xl font-anton">{lastNameText}</span>
+        </div>
+        <Button iconRight={<ArrowRight />}>
+          <a href="#experience">About me</a>
+        </Button>
+      </div>
     </div>
   );
 };

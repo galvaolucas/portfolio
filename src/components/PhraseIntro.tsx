@@ -1,7 +1,6 @@
-import { Linkedin, Github } from "lucide-react";
 import { useEffect, useState } from "react";
 
-export const Name = (): React.ReactElement => {
+export const PhraseIntro = (): React.ReactElement => {
   const [firstNameText, setFirstNameText] = useState<string>("");
   const [lastNameText, setLastNameText] = useState<string>("");
   const [showLine, setShowLine] = useState<boolean>(false);
@@ -47,15 +46,7 @@ export const Name = (): React.ReactElement => {
             showLine ? "line-grow-animation" : "w-0"
           }`}
         ></div>
-      </div>
-      <div className="flex flex-row gap-4">
-        <a href="https://www.linkedin.com/in/lucasm-galvao/" target="_blank">
-          <Linkedin className="hover:text-purple-400" />
-        </a>
-        <a href="https://github.com/galvaolucas" target="_blank">
-          <Github className="hover:text-purple-400" />
-        </a>
-      </div>
+      </div> 
     </div>
   );
 };

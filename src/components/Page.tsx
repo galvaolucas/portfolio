@@ -2,6 +2,8 @@ import { twMerge } from "tailwind-merge";
 import { Home } from "./Home";
 import { useEffect, useState } from "react";
 import { LoadingScreen } from "./ui/LoadingScreen";
+import { Stack } from "./Stack";
+import { Experience } from "./Experience";
 
 export const Page = (): React.ReactElement => {
   const [showLoading, setShowLoading] = useState<boolean>(true);
@@ -13,7 +15,7 @@ export const Page = (): React.ReactElement => {
 
   return (
     <div className="h-screen overflow-y-scroll snap-y snap-proximity scroll-smooth">
-      <BaseSection className="bg-gradient-to-b from-space-cadet via-dark-purple to-night relative">
+      <BaseSection id='home' className="relative bg-midnight">
         <>
           <div
             className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
@@ -29,27 +31,30 @@ export const Page = (): React.ReactElement => {
           </div>
         </>
       </BaseSection>
-      <BaseSection className="bg-night">
-        <h1 className="text-white text-4xl">Page 2</h1>
+      <BaseSection id='stack' className="bg-midnight">
+        <Stack />
       </BaseSection>
-      <BaseSection>
-        <h1 className="text-white text-4xl">Page 3</h1>
+      <BaseSection className="bg-black" id='experience' >
+        <Experience />
       </BaseSection>
     </div>
   );
 };
 
 const BaseSection = ({
+  id,
   children,
   className,
 }: {
+  id: string,
   children: React.ReactElement;
   className?: string;
 }): React.ReactElement => {
   return (
     <section
+      id={id}
       className={twMerge(
-        "h-screen snap-start flex items-center justify-center",
+        "h-screen snap-start flex items-center justify-center px-12",
         className
       )}
     >

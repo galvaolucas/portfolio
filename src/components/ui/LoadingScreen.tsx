@@ -14,8 +14,8 @@ export const LoadingScreen = (): React.ReactElement => {
     <div className="bg-dark-background w-full h-full flex items-center justify-center">
       <Lottie
         options={defaultOptions}
-        height={150}
-        width={150}
+        height={200}
+        width={200}
         isStopped={false}
         isPaused={false}
       />
