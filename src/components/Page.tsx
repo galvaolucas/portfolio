@@ -32,6 +32,7 @@ export const Page = (): React.ReactElement => {
           </div>
         </>
       </BaseSection>
+      <div style={{ opacity: showLoading ? 0 : 1 }}>
       <BaseSection id='stack' className="bg-black">
         <Stack />
       </BaseSection>
@@ -41,6 +42,7 @@ export const Page = (): React.ReactElement => {
       <BaseSection className="bg-black" id='getintouch' >
         <GetInTouch />
       </BaseSection>
+      </div>
     </div>
   );
 };
