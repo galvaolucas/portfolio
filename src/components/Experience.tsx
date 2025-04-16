@@ -3,6 +3,7 @@ import { useExperience } from "@/hooks/useExperience";
 import { WORK_EXPERIENCE } from "@/constants/constants";
 import { twMerge } from "tailwind-merge";
 import { Briefcase, CalendarClock, MapPin } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export type IWorkExperienceKey =
   | "INSTACASA"
@@ -25,16 +26,16 @@ export const Experience = (): React.ReactElement => {
 
   return (
     <>
-      <div className="flex flex-row pt-20 items-start justify-center gap-16 w-full h-full">
-        <div className="flex h-full items-center text-8xl font-anton text-isabelline">
+      <div className="flex flex-col md:flex-row pt-8 md:pt-20 items-start justify-start md:justify-center gap-8 md:gap-16 w-full h-full">
+        <div className="flex w-full md:w-fit h-fit md:h-full items-center justify-center text-6xl md:text-8xl font-anton text-isabelline text-center md:text-start">
           WORK <br /> EXPERIENCE
         </div>
-        <div className="w-180 h-150 text-feint-text flex flex-col gap-2 font-medium">
+        <div className="w-full md:w-180 h-150 text-feint-text flex flex-col gap-2 font-medium">
           <Panel>
             <AnimatePresence>
               <motion.div
                 key={experienceCard}
-                className="space-y-8"
+                className="space-y-6 md:space-y-8"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
@@ -57,7 +58,7 @@ export const Experience = (): React.ReactElement => {
                   <CalendarClock style={{ color: colors[experienceCard] }} />
                   {WORK_EXPERIENCE[experienceCard].date}
                 </div>
-                <div className="text-gray-500 text-sm flex flex-row gap-2 items-start text-justify">
+                <div className="text-gray-500 text-sm flex flex-row gap-2 items-start text-justify overflow-y-scroll h-60 md:h-fit">
                   <div>
                     <Briefcase style={{ color: colors[experienceCard] }} />
                   </div>
@@ -91,7 +92,7 @@ export const Experience = (): React.ReactElement => {
 
 const Pill = ({ name }: { name: string }): React.ReactElement => {
   return (
-    <div className="py-2 px-4 text-xs rounded-full bg-pill-background text-pill-text">
+    <div className="py-0 md:py-2 px-0 md:px-4 text-xs rounded-full bg-transparent md:bg-pill-background text-pill-text">
       {name}
     </div>
   );
@@ -103,7 +104,7 @@ const Panel = ({
   children: React.ReactElement;
 }): React.ReactElement => {
   return (
-    <div className="w-full h-full border rounded-md p-4 border-border-default bg-layer-transparent/30">
+    <div className="w-full min-h-full border rounded-md p-4 border-border-default bg-layer-transparent/30">
       {children}
     </div>
   );
@@ -122,7 +123,16 @@ const Tabs = ({
   selected: IWorkExperienceKey;
   setSelected: (arg: IWorkExperienceKey) => void;
 }): React.ReactElement => {
+  const [isMobile, setIsMobile] = useState<boolean>(false);
   const isActive = identifier === selected;
+
+  useEffect(() => {
+    if (window?.innerWidth <= 768) {
+      setIsMobile(true);
+    } else {
+      setIsMobile(false);
+    }
+  }, [])
 
   return (
     <motion.div
@@ -135,16 +145,16 @@ const Tabs = ({
         <motion.div
           layoutId="tabsBackground"
           className="absolute inset-0 rounded-md z-0"
-          style={{ backgroundColor: color }}
+          style={{ backgroundColor: isMobile ? 'transparent' : color }}
           transition={{ type: "spring", stiffness: 400, damping: 30 }}
         />
       )}
 
       <span
         className={twMerge(
-          "relative z-10 transition-all ease-in-out font-medium",
-          isActive ? "text-white" : "text-feint-text"
+          "relative z-10 transition-all ease-in-out font-medium text-sm md:text-base text-center md:text-start"
         )}
+        style={{ color: (isActive && isMobile) ? color : (isActive && !isMobile) ? '#FFFFFF'  : '#586d8c' }}
       >
         {name}
       </span>

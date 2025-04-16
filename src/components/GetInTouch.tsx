@@ -15,8 +15,8 @@ export const GetInTouch = (): React.ReactElement => {
 
   return (
     <div className="flex flex-col items-center justify-between gap-8 w-full h-full pt-44">
-      <div className="flex flex-col items-center gap-4">
-        <div className="text-8xl font-anton text-isabelline">GET IN TOUCH</div>
+      <div className="flex flex-col items-center gap-8 md:gap-4">
+        <div className="text-8xl font-anton text-isabelline text-center md:text-start">GET IN TOUCH</div>
         <div className="text-gray-600 text-xl text-center italic">
           Whether you have a question or just want to say hi, <br />
           I’ll try my best to get back to you!

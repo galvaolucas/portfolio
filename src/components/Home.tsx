@@ -38,13 +38,13 @@ export const Home = (): React.ReactElement => {
   }, []);
 
   return (
-    <div className="flex flex-col w-full h-full px-12 py-8 text-isabelline">
+    <div className="flex flex-col h-full px-6 md:px-12 py-8 text-isabelline">
       <TopBar />
-      <div className="w-full h-full flex items-center justify-end">
+      <div className="h-full flex items-center justify-end">
         <Introducing />
       </div>
-      <div className="flex flex-row items-end justify-between min-h-52">
-        <div>
+      <div className="flex flex-row items-end justify-end md:justify-between min-h-52">
+        <div className="hidden md:block">
           <span className="text-8xl font-anton">{part1}</span>
           <br />
           <span className="text-8xl font-anton">{part2}</span>

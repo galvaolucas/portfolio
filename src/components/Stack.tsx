@@ -2,9 +2,12 @@ import { TECH_STACK } from "@/constants/constants";
 
 export const Stack = (): React.ReactElement => {
   return (
-    <div className="w-full flex flex-row items-center justify-between gap-20 px-36">
+    <div className="w-full flex flex-col md:flex-row items-center justify-between gap-8 md:gap-20 px-2 md:px-36">
+      <div className="block md:hidden text-6xl text-center font-anton text-isabelline">
+        TECH <br /> STACK
+      </div>
       <Pills />
-      <div className="text-8xl font-anton text-isabelline">
+      <div className="hidden md:block text-8xl text-center font-anton text-isabelline">
         TECH <br /> STACK
       </div>
     </div>
@@ -13,7 +16,7 @@ export const Stack = (): React.ReactElement => {
 
 const Pills = (): React.ReactElement => {
   return (
-    <div className="flex flex-row gap-4 flex-wrap">
+    <div className="flex flex-row gap-2 md:gap-4 flex-wrap">
       {TECH_STACK.map((e, index) => {
         return (
           <Pill
@@ -42,7 +45,7 @@ const Pill = ({
 }) => {
   return (
     <a
-      className="flex flex-row gap-2 px-4 py-2 rounded-full bg-white font-semibold cursor-pointer hover:scale-110 transition-all ease-in-out"
+      className="flex flex-row gap-2 px-4 py-2 rounded-full bg-white font-semibold cursor-pointer hover:scale-110 transition-all ease-in-out text-sm md:text-base"
       href={link}
       target="_blank"
       style={{ color }}

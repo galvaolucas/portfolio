@@ -1,27 +1,38 @@
 import { Github, Linkedin } from "lucide-react";
 import { Link } from "./ui/Link";
+import { useEffect, useState } from "react";
 
 const mode = import.meta.env.MODE;
 
 export const TopBar = (): React.ReactElement => {
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (window?.innerWidth <= 768) {
+      setIsMobile(true);
+    } else {
+      setIsMobile(false);
+    }
+  }, [])
+
   return (
     <div className="text-isabelline flex flex-row items-start justify-between">
       <div className="">
         <a href="/" target="_self" className="cursor-pointer">
           <img
             src={mode === 'development' ? `logos/logo-white.png` : `${import.meta.env.BASE_URL}/logos/logo-white.png`}
-            width={80}
-            height={80}
+            width={isMobile ? 40 : 80}
+            height={isMobile ? 40 : 80}
             alt="logo_white"
           />
         </a>
       </div>
       <div className="flex gap-6">
         <a href="https://www.linkedin.com/in/lucasm-galvao/" target="_blank">
-          <Linkedin className="hover:text-purple-400" />
+          <Linkedin className="hover:text-purple-400 text-purple-400 md:text-white" />
         </a>
         <a href="https://github.com/galvaolucas" target="_blank">
-          <Github className="hover:text-purple-400" />
+          <Github className="hover:text-purple-400 text-purple-400 md:text-white" />
         </a>
         <Link
           label="Blog"

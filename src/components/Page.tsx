@@ -15,8 +15,8 @@ export const Page = (): React.ReactElement => {
   }, []);
 
   return (
-    <div className="h-screen overflow-y-scroll snap-y snap-proximity scroll-smooth">
-      <BaseSection id="home" className="relative bg-black">
+    <div className="w-screen h-screen overflow-y-scroll snap-y snap-proximity scroll-smooth">
+      <BaseSection id="home" className="bg-black relative">
         <>
           <div
             className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
@@ -62,7 +62,7 @@ const BaseSection = ({
     <section
       id={id}
       className={twMerge(
-        "h-screen snap-start flex items-center justify-center px-12",
+        "h-screen snap-start flex items-center justify-center px-4 md:px-12 overflow-x-hidden",
         className
       )}
     >
