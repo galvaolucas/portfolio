@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useExperience } from "@/hooks/useExperience";
 import { WORK_EXPERIENCE } from "@/constants/constants";
 import { twMerge } from "tailwind-merge";
-import { Briefcase, CalendarClock } from "lucide-react";
+import { Briefcase, CalendarClock, MapPin } from "lucide-react";
 
 export type IWorkExperienceKey =
   | "INSTACASA"
@@ -49,7 +49,10 @@ export const Experience = (): React.ReactElement => {
                   </div>
                   <div className="border border-t-0 border-b-[0.5px] border-gray-500"></div>
                 </div>
-
+                <div className="text-gray-500 text-sm flex flex-row gap-2 items-start">
+                  <MapPin style={{ color: colors[experienceCard] }} />
+                  {WORK_EXPERIENCE[experienceCard].location}
+                </div>
                 <div className="text-gray-500 text-sm flex flex-row gap-2 items-start">
                   <CalendarClock style={{ color: colors[experienceCard] }} />
                   {WORK_EXPERIENCE[experienceCard].date}

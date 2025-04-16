@@ -6,10 +6,10 @@ import { Button } from "./ui/Button";
 import { ArrowRight } from "lucide-react";
 
 export const Home = (): React.ReactElement => {
-  const [firstNameText, setFirstNameText] = useState<string>("");
-  const [lastNameText, setLastNameText] = useState<string>("");
-  const firstName = "I CAN HELP YOU";
-  const lastName = "TO CRAFT THINGS";
+  const [part1, setPart1] = useState<string>("");
+  const [part2, setPart2] = useState<string>("");
+  const first = "I CAN HELP YOU";
+  const second = "TO CRAFT THINGS";
 
   const animateText = (
     index: number,
@@ -27,8 +27,8 @@ export const Home = (): React.ReactElement => {
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      animateText(0, firstName.split(""), setFirstNameText, () => {
-        animateText(0, lastName.split(""), setLastNameText);
+      animateText(0, first.split(""), setPart1, () => {
+        animateText(0, second.split(""), setPart2);
       });
     }, 5000);
 
@@ -45,9 +45,9 @@ export const Home = (): React.ReactElement => {
       </div>
       <div className="flex flex-row items-end justify-between min-h-52">
         <div>
-          <span className="text-8xl font-anton">{firstNameText}</span>
+          <span className="text-8xl font-anton">{part1}</span>
           <br />
-          <span className="text-8xl font-anton">{lastNameText}</span>
+          <span className="text-8xl font-anton">{part2}</span>
         </div>
         <Button iconRight={<ArrowRight />}>
           <a href="#experience">About me</a>

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { LoadingScreen } from "./ui/LoadingScreen";
 import { Stack } from "./Stack";
 import { Experience } from "./Experience";
+import { GetInTouch } from "./GetInTouch";
 
 export const Page = (): React.ReactElement => {
   const [showLoading, setShowLoading] = useState<boolean>(true);
@@ -15,7 +16,7 @@ export const Page = (): React.ReactElement => {
 
   return (
     <div className="h-screen overflow-y-scroll snap-y snap-proximity scroll-smooth">
-      <BaseSection id='home' className="relative bg-midnight">
+      <BaseSection id='home' className="relative bg-black">
         <>
           <div
             className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
@@ -31,11 +32,14 @@ export const Page = (): React.ReactElement => {
           </div>
         </>
       </BaseSection>
-      <BaseSection id='stack' className="bg-midnight">
+      <BaseSection id='stack' className="bg-black">
         <Stack />
       </BaseSection>
       <BaseSection className="bg-black" id='experience' >
         <Experience />
+      </BaseSection>
+      <BaseSection className="bg-black" id='getintouch' >
+        <GetInTouch />
       </BaseSection>
     </div>
   );
