@@ -9,8 +9,6 @@ export const GetInTouch = (): React.ReactElement => {
     stargazers_count: number;
   }>({ forks_count: 0, stargazers_count: 0 });
 
-  console.log(data);
-
   useEffect(() => {
     void getPortfolioRepoData().then((res) => setData(res));
   }, []);

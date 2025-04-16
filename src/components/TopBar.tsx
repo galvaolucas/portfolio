@@ -7,7 +7,7 @@ export const TopBar = (): React.ReactElement => {
       <div className="">
         <a href="/" target="_self" className="cursor-pointer">
           <img
-            src="/logos/logo-white.png"
+            src={`${import.meta.env.BASE_URL}/public/logos/logo-white.png`}
             width={80}
             height={80}
             alt="logo_white"

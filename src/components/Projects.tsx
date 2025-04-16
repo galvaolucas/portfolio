@@ -9,13 +9,11 @@ export const Projects = (): React.ReactElement => {
     setRepos(data);
   }
 
-  console.log(repos)
-
   useEffect(() => {
     void getPersonalRepos()
   }, [])
 
   return (
-    <div>Projects</div>
+    <div>{repos}</div>
   )
 }
