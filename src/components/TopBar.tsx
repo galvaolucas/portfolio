@@ -1,13 +1,15 @@
 import { Github, Linkedin } from "lucide-react";
 import { Link } from "./ui/Link";
 
+const mode = import.meta.env.MODE;
+
 export const TopBar = (): React.ReactElement => {
   return (
     <div className="text-isabelline flex flex-row items-start justify-between">
       <div className="">
         <a href="/" target="_self" className="cursor-pointer">
           <img
-            src={`${import.meta.env.BASE_URL}/public/logos/logo-white.png`}
+            src={mode === 'development' ? `logos/logo-white.png` : `${import.meta.env.BASE_URL}/public/logos/logo-white.png`}
             width={80}
             height={80}
             alt="logo_white"
