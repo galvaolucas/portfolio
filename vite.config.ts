@@ -8,6 +8,7 @@ export default defineConfig({
   server: {
     cors: true,
   },
+  base: '/',
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
