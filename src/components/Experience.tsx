@@ -2,7 +2,13 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useExperience } from "@/hooks/useExperience";
 import { WORK_EXPERIENCE } from "@/constants/constants";
 import { twMerge } from "tailwind-merge";
-import { Briefcase, CalendarClock, MapPin } from "lucide-react";
+import {
+  ArrowBigLeft,
+  ArrowBigRight,
+  Briefcase,
+  CalendarClock,
+  MapPin,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 
 export type IWorkExperienceKey =
@@ -38,7 +44,7 @@ export const Experience = (): React.ReactElement => {
                 className="space-y-6 md:space-y-8"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
+                transition={{ duration: 0.7, ease: "easeInOut" }}
               >
                 <div className="flex flex-col gap-1">
                   <div className="font-semibold flex flex-row gap-2 items-center text-lg">
@@ -58,7 +64,7 @@ export const Experience = (): React.ReactElement => {
                   <CalendarClock style={{ color: colors[experienceCard] }} />
                   {WORK_EXPERIENCE[experienceCard].date}
                 </div>
-                <div className="text-gray-500 text-sm flex flex-row gap-2 items-start text-justify overflow-y-scroll h-60 md:h-fit">
+                <div className="text-gray-500 text-sm flex flex-row gap-2 items-start text-justify overflow-y-scroll h-60 md:h-fit hideScroll">
                   <div>
                     <Briefcase style={{ color: colors[experienceCard] }} />
                   </div>
@@ -72,7 +78,7 @@ export const Experience = (): React.ReactElement => {
               </motion.div>
             </AnimatePresence>
           </Panel>
-          <div className="flex flex-row items-center justify-center gap-1 p-2 rounded-md bg-layer-transparent border border-border-default">
+          <div className="hidden md:flex flex-row items-center justify-center gap-1 p-2 rounded-md bg-layer-transparent border border-border-default">
             {Object.values(WORK_EXPERIENCE).map((item, index) => (
               <Tabs
                 key={`tab_${index}`}
@@ -84,6 +90,7 @@ export const Experience = (): React.ReactElement => {
               />
             ))}
           </div>
+          <Arrows experienceCard={experienceCard} setExperienceCard={setExperienceCard} />
         </div>
       </div>
     </>
@@ -104,7 +111,7 @@ const Panel = ({
   children: React.ReactElement;
 }): React.ReactElement => {
   return (
-    <div className="w-full min-h-full border rounded-md p-4 border-border-default bg-layer-transparent/30">
+    <div className="w-full min-h-full border rounded-md p-4 border-none md:border-border-default bg-layer-transparent/30">
       {children}
     </div>
   );
@@ -132,11 +139,11 @@ const Tabs = ({
     } else {
       setIsMobile(false);
     }
-  }, [])
+  }, []);
 
   return (
     <motion.div
-      className="relative w-full rounded-md text-white flex items-center justify-center p-2 cursor-pointer overflow-hidden"
+      className="flex relative w-full rounded-md text-white items-center justify-center p-2 cursor-pointer overflow-hidden"
       onClick={() => setSelected(identifier)}
       whileTap={{ scale: 0.95 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
@@ -145,7 +152,7 @@ const Tabs = ({
         <motion.div
           layoutId="tabsBackground"
           className="absolute inset-0 rounded-md z-0"
-          style={{ backgroundColor: isMobile ? 'transparent' : color }}
+          style={{ backgroundColor: isMobile ? "transparent" : color }}
           transition={{ type: "spring", stiffness: 400, damping: 30 }}
         />
       )}
@@ -154,10 +161,74 @@ const Tabs = ({
         className={twMerge(
           "relative z-10 transition-all ease-in-out font-medium text-sm md:text-base text-center md:text-start"
         )}
-        style={{ color: (isActive && isMobile) ? color : (isActive && !isMobile) ? '#FFFFFF'  : '#586d8c' }}
+        style={{
+          color:
+            isActive && isMobile
+              ? color
+              : isActive && !isMobile
+              ? "#FFFFFF"
+              : "#586d8c",
+        }}
       >
         {name}
       </span>
     </motion.div>
+  );
+};
+
+const Arrows = ({
+  experienceCard,
+  setExperienceCard,
+}: {
+  experienceCard: IWorkExperienceKey;
+  setExperienceCard: (arg: IWorkExperienceKey) => void;
+}): React.ReactElement => {
+  const keys = Object.keys(WORK_EXPERIENCE) as IWorkExperienceKey[];
+  const actualIndex = keys.indexOf(experienceCard);
+  const [isLast, setIsLast] = useState<boolean>(false);
+  const [isFirst, setIsFirst] = useState<boolean>(true);
+
+  console.log(actualIndex, keys.length)
+
+  useEffect(() => {
+    if (actualIndex + 1 === keys.length) {
+      setIsLast(true);
+    } else {
+      setIsLast(false)
+    }
+    if (actualIndex === 0) {
+      setIsFirst(true);
+    } else {
+      setIsFirst(false);
+    }
+  }, [actualIndex])
+
+  const forward = () => {
+    if (actualIndex + 1 < keys.length) {
+      setExperienceCard(keys[actualIndex + 1]);
+    }
+  };
+
+  const backward = () => {
+    if (actualIndex - 1 >= 0) {
+      setExperienceCard(keys[actualIndex - 1]);
+    }
+  };
+
+  return (
+    <div className="flex md:hidden flex-row items-center justify-between">
+      <div
+        onClick={backward}
+        className={twMerge("bg-pill-text text-midnight rounded-full", isFirst && 'opacity-40')}
+      >
+        <ArrowBigLeft width={40} height={40} />
+      </div>
+      <div
+        onClick={forward}
+        className={twMerge("bg-pill-text text-midnight rounded-full", isLast && 'opacity-40')}
+      >
+        <ArrowBigRight width={40} height={40} />
+      </div>
+    </div>
   );
 };

@@ -48,3 +48,11 @@
   cursor: url('/cursors/pencil-cursor.png') 0 0, auto;
 }
 
+.hideScroll {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.hideScroll::-webkit-scrollbar { 
+  display: none;  /* Safari and Chrome */
+}
