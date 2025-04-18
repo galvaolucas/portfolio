@@ -11,6 +11,7 @@ import {
   MoveUpRight,
 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 export type IWorkExperienceKey =
   | "INSTACASA"
@@ -22,6 +23,7 @@ export type IWorkExperienceKey =
 export const Experience = (): React.ReactElement => {
   const { experienceCard, setExperienceCard } = useExperience();
   const keys = Object.keys(WORK_EXPERIENCE);
+  const { isMobile } = useIsMobile();
 
   const colors = {
     INSTACASA: "#708BF8",
@@ -33,11 +35,11 @@ export const Experience = (): React.ReactElement => {
 
   return (
     <>
-      <div className="flex flex-col md:flex-row pt-8 md:pt-20 items-start justify-start md:justify-center gap-8 md:gap-16 w-full h-full">
+      <div className="flex flex-col md:flex-row pt-8 md:pt-20 items-start justify-start md:justify-center gap-4 md:gap-16 w-full h-full">
         <div className="flex w-full md:w-fit h-fit md:h-full items-center justify-center text-6xl md:text-8xl font-anton text-isabelline text-center md:text-start">
           WORK <br /> EXPERIENCE
         </div>
-        <div className="w-full md:w-180 h-150 text-feint-text flex flex-col gap-2 font-medium">
+        <div className="w-full md:w-180 h-132 md:h-150 text-feint-text flex flex-col gap-2 font-medium">
           <Panel>
             <AnimatePresence>
               <motion.div
@@ -49,9 +51,9 @@ export const Experience = (): React.ReactElement => {
               >
                 <div className="flex flex-col gap-1">
                   <div className="flex flex-row items-center justify-between">
-                    <div className="font-semibold flex flex-row gap-2 items-center text-lg">
+                    <div className="font-semibold flex flex-row gap-2 items-center text-base md:text-lg">
                       <div
-                        className="rounded-full w-4 h-4"
+                        className="rounded-full w-2 md:w-4 h-2 md:h-4"
                         style={{ backgroundColor: colors[experienceCard] }}
                       ></div>
                       {WORK_EXPERIENCE[experienceCard].jobTitle}
@@ -60,22 +62,22 @@ export const Experience = (): React.ReactElement => {
                       target="_blank"
                       href={WORK_EXPERIENCE[experienceCard].companyUrl}
                     >
-                      <MoveUpRight style={{ color: colors[experienceCard] }} />
+                      <MoveUpRight className="w-5 md:w-6" style={{ color: colors[experienceCard] }} />
                     </a>
                   </div>
                   <div className="border border-t-0 border-b-[0.5px] border-gray-500"></div>
                 </div>
-                <div className="text-gray-500 text-sm flex flex-row gap-2 items-start">
-                  <MapPin style={{ color: colors[experienceCard] }} />
+                <div className="text-gray-500 text-xs md:text-sm flex flex-row gap-2 items-center">
+                  <MapPin className="w-5 md:w-6"  style={{ color: colors[experienceCard] }} />
                   {WORK_EXPERIENCE[experienceCard].location}
                 </div>
-                <div className="text-gray-500 text-sm flex flex-row gap-2 items-start">
-                  <CalendarClock style={{ color: colors[experienceCard] }} />
+                <div className="text-gray-500 text-xs md:text-sm flex flex-row gap-2 items-center">
+                  <CalendarClock className="w-5 md:w-6" style={{ color: colors[experienceCard] }} />
                   {WORK_EXPERIENCE[experienceCard].date}
                 </div>
-                <div className="text-gray-500 text-sm flex flex-row gap-2 items-start text-justify h-fit">
+                <div className="text-gray-500 text-xs md:text-sm flex flex-row gap-2 items-start text-justify h-fit">
                   <div>
-                    <Briefcase style={{ color: colors[experienceCard] }} />
+                    <Briefcase className="w-5 md:w-6" style={{ color: colors[experienceCard] }} />
                   </div>
                   <div className="overflow-y-scroll h-60">
                     {WORK_EXPERIENCE[experienceCard].description.join(" ")}
@@ -113,7 +115,7 @@ export const Experience = (): React.ReactElement => {
 
 const Pill = ({ name }: { name: string }): React.ReactElement => {
   return (
-    <div className="py-0 md:py-2 px-0 md:px-4 text-xs rounded-full bg-transparent md:bg-pill-background text-pill-text">
+    <div className="py-0 md:py-2 px-0 md:px-4 text-[10px] text-xs rounded-full bg-transparent md:bg-pill-background text-pill-text">
       {name}
     </div>
   );
@@ -228,7 +230,7 @@ const Arrows = ({
   };
 
   return (
-    <div className="absolute bottom-0 left-0 w-full">
+    <div className="absolute bottom-0 left-0 w-full px-2">
       <div className="flex md:hidden flex-row items-center justify-between">
         <div
           onClick={backward}
@@ -237,7 +239,7 @@ const Arrows = ({
             isFirst && "opacity-40"
           )}
         >
-          <ArrowBigLeft width={40} height={40} />
+          <ArrowBigLeft width={32} height={32} />
         </div>
         <div
           onClick={forward}
@@ -246,7 +248,7 @@ const Arrows = ({
             isLast && "opacity-40"
           )}
         >
-          <ArrowBigRight width={40} height={40} />
+          <ArrowBigRight width={32} height={32} />
         </div>
       </div>
     </div>
