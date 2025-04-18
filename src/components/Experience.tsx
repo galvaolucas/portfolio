@@ -33,7 +33,7 @@ export const Experience = (): React.ReactElement => {
 
   return (
     <>
-      <div className="flex flex-col md:flex-row pt-8 md:pt-20 items-start justify-start md:justify-center gap-8 md:gap-16 w-full h-full overflow-y-hidden">
+      <div className="flex flex-col md:flex-row pt-8 md:pt-20 items-start justify-start md:justify-center gap-8 md:gap-16 w-full h-full">
         <div className="flex w-full md:w-fit h-fit md:h-full items-center justify-center text-6xl md:text-8xl font-anton text-isabelline text-center md:text-start">
           WORK <br /> EXPERIENCE
         </div>
