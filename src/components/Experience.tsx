@@ -33,7 +33,7 @@ export const Experience = (): React.ReactElement => {
 
   return (
     <>
-      <div className="flex flex-col md:flex-row pt-8 md:pt-20 items-start justify-start md:justify-center gap-8 md:gap-16 w-full h-full">
+      <div className="flex flex-col md:flex-row pt-8 md:pt-20 items-start justify-start md:justify-center gap-8 md:gap-16 w-full h-full overflow-y-hidden">
         <div className="flex w-full md:w-fit h-fit md:h-full items-center justify-center text-6xl md:text-8xl font-anton text-isabelline text-center md:text-start">
           WORK <br /> EXPERIENCE
         </div>
@@ -157,7 +157,7 @@ const Tabs = ({
 
   return (
     <motion.div
-      className="flex relative w-full rounded-md text-white items-center justify-center p-2 cursor-pointer overflow-hidden"
+      className="flex relative w-full rounded-md text-white items-center justify-center p-2 cursor-pointer"
       onClick={() => setSelected(identifier)}
       whileTap={{ scale: 0.95 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
