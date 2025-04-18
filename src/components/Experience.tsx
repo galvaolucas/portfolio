@@ -64,11 +64,13 @@ export const Experience = (): React.ReactElement => {
                   <CalendarClock style={{ color: colors[experienceCard] }} />
                   {WORK_EXPERIENCE[experienceCard].date}
                 </div>
-                <div className="text-gray-500 text-sm flex flex-row gap-2 items-start text-justify overflow-y-scroll h-60 md:h-fit hideScroll">
+                <div className="text-gray-500 text-sm flex flex-row gap-2 items-start text-justify h-fit">
                   <div>
                     <Briefcase style={{ color: colors[experienceCard] }} />
                   </div>
-                  {WORK_EXPERIENCE[experienceCard].description.join(" ")}
+                  <div className="overflow-y-scroll h-60">
+                    {WORK_EXPERIENCE[experienceCard].description.join(" ")}
+                  </div>
                 </div>
                 <div className="flex flex-row flex-wrap gap-2 justify-center">
                   {WORK_EXPERIENCE[experienceCard].stack.map((item, index) => (
@@ -187,8 +189,6 @@ const Arrows = ({
   const actualIndex = keys.indexOf(experienceCard);
   const [isLast, setIsLast] = useState<boolean>(false);
   const [isFirst, setIsFirst] = useState<boolean>(true);
-
-  console.log(actualIndex, keys.length)
 
   useEffect(() => {
     if (actualIndex + 1 === keys.length) {
