@@ -86,6 +86,10 @@ export const Experience = (): React.ReactElement => {
                     <Pill name={item} key={`pill_${index}`} />
                   ))}
                 </div>
+                <Arrows
+                  experienceCard={experienceCard}
+                  setExperienceCard={setExperienceCard}
+                />
               </motion.div>
             </AnimatePresence>
           </Panel>
@@ -101,10 +105,6 @@ export const Experience = (): React.ReactElement => {
               />
             ))}
           </div>
-          <Arrows
-            experienceCard={experienceCard}
-            setExperienceCard={setExperienceCard}
-          />
         </div>
       </div>
     </>
@@ -125,7 +125,7 @@ const Panel = ({
   children: React.ReactElement;
 }): React.ReactElement => {
   return (
-    <div className="w-full min-h-full border rounded-md p-4 border-midnight md:border-border-default bg-layer-transparent/30">
+    <div className="relative w-full min-h-full border rounded-md p-4 border-midnight md:border-border-default bg-layer-transparent/30">
       {children}
     </div>
   );
@@ -228,24 +228,26 @@ const Arrows = ({
   };
 
   return (
-    <div className="flex md:hidden flex-row items-center justify-between">
-      <div
-        onClick={backward}
-        className={twMerge(
-          "bg-pill-text text-midnight rounded-full",
-          isFirst && "opacity-40"
-        )}
-      >
-        <ArrowBigLeft width={40} height={40} />
-      </div>
-      <div
-        onClick={forward}
-        className={twMerge(
-          "bg-pill-text text-midnight rounded-full",
-          isLast && "opacity-40"
-        )}
-      >
-        <ArrowBigRight width={40} height={40} />
+    <div className="absolute bottom-0 left-0 w-full">
+      <div className="flex md:hidden flex-row items-center justify-between">
+        <div
+          onClick={backward}
+          className={twMerge(
+            "bg-pill-text text-midnight rounded-full",
+            isFirst && "opacity-40"
+          )}
+        >
+          <ArrowBigLeft width={40} height={40} />
+        </div>
+        <div
+          onClick={forward}
+          className={twMerge(
+            "bg-pill-text text-midnight rounded-full",
+            isLast && "opacity-40"
+          )}
+        >
+          <ArrowBigRight width={40} height={40} />
+        </div>
       </div>
     </div>
   );
