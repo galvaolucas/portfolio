@@ -23,7 +23,6 @@ export type IWorkExperienceKey =
 export const Experience = (): React.ReactElement => {
   const { experienceCard, setExperienceCard } = useExperience();
   const keys = Object.keys(WORK_EXPERIENCE);
-  const { isMobile } = useIsMobile();
 
   const colors = {
     INSTACASA: "#708BF8",
@@ -146,16 +145,8 @@ const Tabs = ({
   selected: IWorkExperienceKey;
   setSelected: (arg: IWorkExperienceKey) => void;
 }): React.ReactElement => {
-  const [isMobile, setIsMobile] = useState<boolean>(false);
   const isActive = identifier === selected;
-
-  useEffect(() => {
-    if (window?.innerWidth <= 768) {
-      setIsMobile(true);
-    } else {
-      setIsMobile(false);
-    }
-  }, []);
+  const { isMobile } = useIsMobile();
 
   return (
     <motion.div

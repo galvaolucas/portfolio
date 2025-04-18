@@ -1,19 +1,11 @@
 import { Github, Linkedin } from "lucide-react";
 import { Link } from "./ui/Link";
-import { useEffect, useState } from "react";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 const mode = import.meta.env.MODE;
 
 export const TopBar = (): React.ReactElement => {
-  const [isMobile, setIsMobile] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (window?.innerWidth <= 768) {
-      setIsMobile(true);
-    } else {
-      setIsMobile(false);
-    }
-  }, [])
+  const { isMobile } = useIsMobile();
 
   return (
     <div className="text-isabelline flex flex-row items-start justify-between">
