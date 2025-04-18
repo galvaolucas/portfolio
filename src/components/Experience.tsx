@@ -7,6 +7,7 @@ import {
   ArrowBigRight,
   Briefcase,
   CalendarClock,
+  Code,
   MapPin,
   MoveUpRight,
 } from "lucide-react";
@@ -82,10 +83,16 @@ export const Experience = (): React.ReactElement => {
                     {WORK_EXPERIENCE[experienceCard].description.join(" ")}
                   </div>
                 </div>
-                <div className="flex flex-row flex-wrap gap-2 justify-center">
+                <div className="hidden md:flex flex-row flex-wrap gap-2 justify-center">
                   {WORK_EXPERIENCE[experienceCard].stack.map((item, index) => (
                     <Pill name={item} key={`pill_${index}`} />
                   ))}
+                </div>
+                <div className="flex md:hidden text-gray-500 text-xs flex-row gap-2 items-start text-justify">
+                  <div>
+                    <Code className="w-5 md:w-6" style={{ color: colors[experienceCard] }} />
+                  </div>
+                  {WORK_EXPERIENCE[experienceCard].stack.join(", ")}.
                 </div>
                 <Arrows
                   experienceCard={experienceCard}
@@ -114,7 +121,7 @@ export const Experience = (): React.ReactElement => {
 
 const Pill = ({ name }: { name: string }): React.ReactElement => {
   return (
-    <div className="py-0 md:py-2 px-0 md:px-4 text-[10px] text-xs rounded-full bg-transparent md:bg-pill-background text-pill-text">
+    <div className="py-0 md:py-2 px-0 md:px-4 text-[10px] md:text-xs rounded-full bg-transparent md:bg-pill-background text-pill-text">
       {name}
     </div>
   );
@@ -126,7 +133,7 @@ const Panel = ({
   children: React.ReactElement;
 }): React.ReactElement => {
   return (
-    <div className="relative w-full min-h-full border rounded-md p-4 border-midnight md:border-border-default bg-layer-transparent/30">
+    <div className="relative w-full min-h-full border rounded-md p-4 border-midnight md:border-border-default bg-layer-transparent md:bg-layer-transparent/30">
       {children}
     </div>
   );
