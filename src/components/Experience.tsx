@@ -44,7 +44,7 @@ export const Experience = (): React.ReactElement => {
             <AnimatePresence>
               <motion.div
                 key={experienceCard}
-                className="space-y-6 md:space-y-8"
+                className="space-y-4 md:space-y-8"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.7, ease: "easeInOut" }}
@@ -230,7 +230,7 @@ const Arrows = ({
   };
 
   return (
-    <div className="absolute bottom-0 left-0 w-full px-2">
+    <div className="absolute bottom-0 left-0 w-full p-2">
       <div className="flex md:hidden flex-row items-center justify-between">
         <div
           onClick={backward}
