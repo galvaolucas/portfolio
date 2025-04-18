@@ -153,8 +153,8 @@ export const WORK_EXPERIENCE = {
     date: '2022 - Present.',
     location: 'São Paulo, Brazil 🇧🇷. Remote.',
     description: [
-      'I actively participated on the migration of our legacy PHP administration software to modern technologies. This includes evaluating existing systems, selecting suitable technologies, and managing the migration process to enhance performance and maintainability.',
-      'Successfully developed InstaCasa’s first B2C financing product. From architectural design to deployment, I led the end-to-end process, delivering a first MVP reducing the time to market by 50%.',
+      'I actively participated on the migration of our legacy PHP administration software to modern technologies. This includes evaluating existing systems, selecting suitable technologies, and helping the team on the migration process to enhance performance and maintainability.',
+      'Successfully developed InstaCasa’s first MVP of the B2C financing product. From architectural design to deployment, I led the end-to-end process, delivering a first MVP reducing the time to market by 50%.',
       'Implemented new features across our existing systems, focusing on improving user experience and integrating advanced functionalities in line with our business objectives.',
       'Developed and contributed to RESTful APIs to facilitate seamless communication between various components of our applications, ensuring efficient data exchange and system interoperability.',
       'Conducted performance analysis and optimization of existing codebases, leading to significant improvements in application speed and responsiveness.',

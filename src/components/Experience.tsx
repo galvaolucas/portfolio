@@ -8,6 +8,7 @@ import {
   Briefcase,
   CalendarClock,
   MapPin,
+  MoveUpRight,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -47,12 +48,20 @@ export const Experience = (): React.ReactElement => {
                 transition={{ duration: 0.7, ease: "easeInOut" }}
               >
                 <div className="flex flex-col gap-1">
-                  <div className="font-semibold flex flex-row gap-2 items-center text-lg">
-                    <div
-                      className="rounded-full w-4 h-4"
-                      style={{ backgroundColor: colors[experienceCard] }}
-                    ></div>
-                    {WORK_EXPERIENCE[experienceCard].jobTitle}
+                  <div className="flex flex-row items-center justify-between">
+                    <div className="font-semibold flex flex-row gap-2 items-center text-lg">
+                      <div
+                        className="rounded-full w-4 h-4"
+                        style={{ backgroundColor: colors[experienceCard] }}
+                      ></div>
+                      {WORK_EXPERIENCE[experienceCard].jobTitle}
+                    </div>
+                    <a
+                      target="_blank"
+                      href={WORK_EXPERIENCE[experienceCard].companyUrl}
+                    >
+                      <MoveUpRight style={{ color: colors[experienceCard] }} />
+                    </a>
                   </div>
                   <div className="border border-t-0 border-b-[0.5px] border-gray-500"></div>
                 </div>
@@ -92,7 +101,10 @@ export const Experience = (): React.ReactElement => {
               />
             ))}
           </div>
-          <Arrows experienceCard={experienceCard} setExperienceCard={setExperienceCard} />
+          <Arrows
+            experienceCard={experienceCard}
+            setExperienceCard={setExperienceCard}
+          />
         </div>
       </div>
     </>
@@ -113,7 +125,7 @@ const Panel = ({
   children: React.ReactElement;
 }): React.ReactElement => {
   return (
-    <div className="w-full min-h-full border rounded-md p-4 border-none md:border-border-default bg-layer-transparent/30">
+    <div className="w-full min-h-full border rounded-md p-4 border-midnight md:border-border-default bg-layer-transparent/30">
       {children}
     </div>
   );
@@ -194,14 +206,14 @@ const Arrows = ({
     if (actualIndex + 1 === keys.length) {
       setIsLast(true);
     } else {
-      setIsLast(false)
+      setIsLast(false);
     }
     if (actualIndex === 0) {
       setIsFirst(true);
     } else {
       setIsFirst(false);
     }
-  }, [actualIndex])
+  }, [actualIndex]);
 
   const forward = () => {
     if (actualIndex + 1 < keys.length) {
@@ -219,13 +231,19 @@ const Arrows = ({
     <div className="flex md:hidden flex-row items-center justify-between">
       <div
         onClick={backward}
-        className={twMerge("bg-pill-text text-midnight rounded-full", isFirst && 'opacity-40')}
+        className={twMerge(
+          "bg-pill-text text-midnight rounded-full",
+          isFirst && "opacity-40"
+        )}
       >
         <ArrowBigLeft width={40} height={40} />
       </div>
       <div
         onClick={forward}
-        className={twMerge("bg-pill-text text-midnight rounded-full", isLast && 'opacity-40')}
+        className={twMerge(
+          "bg-pill-text text-midnight rounded-full",
+          isLast && "opacity-40"
+        )}
       >
         <ArrowBigRight width={40} height={40} />
       </div>
