@@ -5,7 +5,7 @@ export default function ThemeSwitcher() {
   const [darkMode, setDarkMode] = useState<boolean>(false);
 
   useEffect(() => {
-    const storedTheme = localStorage.getItem("theme");
+    const storedTheme = localStorage.getItem("color-theme");
     if (storedTheme === "dark") {
       setDarkMode(true);
       document.documentElement.classList.add("dark");
