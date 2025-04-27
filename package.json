@@ -14,6 +14,9 @@
     "node": "20.x"
   },
   "dependencies": {
+    "@portabletext/react": "^3.2.1",
+    "@sanity/client": "^6.29.1",
+    "@sanity/image-url": "^1.1.0",
     "@tailwindcss/vite": "^4.0.17",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

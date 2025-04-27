@@ -2,6 +2,8 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   font-family: Inter, Anton, Handlee, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -37,6 +39,8 @@
   --color-black: #0b1012;
   --color-pill-text: #5eead4;
   --color-pill-background: #2dd4bf1a;
+  --color-ice: #F5F5F7;
+  --color-sun: #FFC15E;
 }
 
 .line-grow-animation {
@@ -53,6 +57,6 @@
   scrollbar-width: none;  /* Firefox */
 }
 
-.hideScroll::-webkit-scrollbar { 
+.hideScroll::-webkit-scrollbar {
   display: none;  /* Safari and Chrome */
 }
