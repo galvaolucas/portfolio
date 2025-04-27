@@ -1,14 +1,14 @@
+import type { TypedObject } from '@portabletext/types';
+
 export type Post = {
   _id: string;
   title: string;
-  image: {
-    asset: {
-      _ref: string;
-    };
-  };
-  slug: string;
-  content: string;
+  imageUrl: string;
+  slug: {
+    current: string;
+  }
   publishedAt: string;
+  body: TypedObject;
 };
 
 export type PostCardProps = {

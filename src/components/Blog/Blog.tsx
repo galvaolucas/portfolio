@@ -5,10 +5,7 @@ import { BlogTopbar } from "./BlogTopbar";
 import { PostCard } from "./PostCard";
 import { Post } from "@/types/types";
 
-const POSTS_QUERY = `*[
-  _type == "post"
-  && defined(slug.current)
-]|order(publishedAt desc)[0...12]{_id, title, image, slug, publishedAt}`;
+const POSTS_QUERY = `*[_type == "post" && defined(slug.current)]|order(publishedAt desc)[0...12]{_id, title, "imageUrl": image.asset->url, slug, publishedAt}`;
 
 export const Blog = () => {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -22,16 +19,16 @@ export const Blog = () => {
     void fetchPosts();
   }, []);
 
-  console.log(posts);
-
   return (
     <Layout>
       <BlogTopbar />
+      <div className="flex flex-row gap-8 p-8">
       {
         posts.map((post) => (
           <PostCard key={post._id} post={post} />
         ))
       }
+      </div>
     </Layout>
   );
 };

@@ -1,30 +1,34 @@
 import { client } from "@/lib/sanity/client";
-import { SanityDocument } from "@sanity/client";
 import { useEffect, useState } from "react";
 import { PortableText } from '@portabletext/react';
-
-const POSTS_QUERY = `*[
-  _type == "post"
-  && defined(slug.current)
-]|order(publishedAt desc)[0...12]{_id, title, slug, body, publishedAt}`;
+import { useParams } from "react-router-dom";
+import { Post as PostType } from "@/types/types";
 
 export const Post = () => {
-  const [posts, setPosts] = useState<SanityDocument[]>([]);
+  const { slug } = useParams();
+  const [post, setPost] = useState<PostType>();
+
+  console.log('slug', post)
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      const posts = await client.fetch(POSTS_QUERY);
-      setPosts(posts);
-    };
+      async function fetchPost() {
+        const query = `*[_type == "post" && slug.current == $slug][0]{
+          _id,
+          title,
+          body
+        }`;
+        const params = { slug };
+        const data = await client.fetch(query, params);
+        setPost(data);
+      }
 
-    void fetchPosts();
-  }, []);
+      fetchPost();
+    }, [slug]);
 
   return (
     <div>
       <h1>Blog</h1>
-      <p>Welcome to my blog!</p>
-      <PortableText value={posts?.[0]?.body} />
+      {post?.body && <PortableText value={post?.body} />}
     </div>
   );
 };
