@@ -1,10 +1,10 @@
 import { Github, Linkedin } from "lucide-react";
-import { Link } from "./ui/Link";
 import { useIsMobile } from "@/hooks/useIsMobile";
+import { Link } from "./ui/link";
 
 const mode = import.meta.env.MODE;
 
-export const Topbar = (): React.ReactElement => {
+export const TopBar = (): React.ReactElement => {
   const { isMobile } = useIsMobile();
 
   return (

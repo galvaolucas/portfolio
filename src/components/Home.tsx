@@ -2,8 +2,8 @@ import type React from "react";
 import { useEffect, useState } from "react";
 import { Introducing } from "./Introducing";
 import { ArrowRight } from "lucide-react";
-import { Topbar } from "./Topbar";
-import { Button } from "./ui/Button";
+import { TopBar } from "./TopBar";
+import { CustomButton } from "./ui/CustomButton";
 
 export const Home = (): React.ReactElement => {
   const [part1, setPart1] = useState<string>("");
@@ -39,7 +39,7 @@ export const Home = (): React.ReactElement => {
 
   return (
     <div className="flex flex-col h-full px-6 md:px-12 py-6 text-isabelline">
-      <Topbar />
+      <TopBar />
       <div className="h-full flex items-center justify-end">
         <Introducing />
       </div>
@@ -49,9 +49,9 @@ export const Home = (): React.ReactElement => {
           <br />
           <span className="text-8xl font-anton">{part2}</span>
         </div>
-        <Button iconRight={<ArrowRight />}>
+        <CustomButton iconRight={<ArrowRight />}>
           <a href="#experience">About me</a>
-        </Button>
+        </CustomButton>
       </div>
     </div>
   );

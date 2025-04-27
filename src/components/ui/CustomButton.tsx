@@ -1,6 +1,6 @@
 import { twMerge } from "tailwind-merge";
 
-interface TButton {
+interface TCustomButton {
   children: string | React.ReactElement;
   onClick?: () => void;
   className?: string;
@@ -8,13 +8,13 @@ interface TButton {
   iconRight?: React.ReactElement
 }
 
-export const Button = ({
+export const CustomButton = ({
   className,
   onClick,
   children,
   variant = "default",
   iconRight,
-}: TButton): React.ReactElement => {
+}: TCustomButton): React.ReactElement => {
   const base = twMerge("flex flex-row items-center justify-center cursor-pointer relative overflow-hidden font-semibold", iconRight && 'flex flex-row gap-2');
   const variants = {
     default: "bg-gradient-to-r from-isabelline to-purple-600 text-night p-2 px-4 rounded-full hover:opacity-95 active:opacity-80 transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-102",

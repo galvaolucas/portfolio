@@ -1,7 +1,7 @@
 import { getPortfolioRepoData } from "@/api";
 import { Star, GitFork, Mail } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Button } from "./ui/Button";
+import { CustomButton } from "./ui/CustomButton";
 
 export const GetInTouch = (): React.ReactElement => {
   const [data, setData] = useState<{
@@ -22,14 +22,14 @@ export const GetInTouch = (): React.ReactElement => {
           I’ll try my best to get back to you!
         </div>
         <div className="mt-4">
-          <Button className="w-52" iconRight={<Mail />}>
+          <CustomButton className="w-52" iconRight={<Mail />}>
             <a
               href="https://mail.google.com/mail/?view=cm&fs=1&to=lucasmelogalv@gmail.com&su=Portfolio%20Contact&body=Leave%20your%20message%20here."
               target="_blank"
             >
               Send a message
             </a>
-          </Button>
+          </CustomButton>
         </div>
       </div>
       <div className="text-indigo pb-8 font-gochi text-lg">
