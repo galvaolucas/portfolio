@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     environment:
-      name: gh-pages
+      name: github-pages
 
     steps:
     - name: Checkout
