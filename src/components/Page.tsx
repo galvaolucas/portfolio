@@ -1,10 +1,10 @@
 import { twMerge } from "tailwind-merge";
 import { Home } from "./Home";
 import { useEffect, useState } from "react";
-import { LoadingScreen } from "./ui/LoadingScreen";
 import { Stack } from "./Stack";
 import { Experience } from "./Experience";
 import { GetInTouch } from "./GetInTouch";
+import { LoadingScreen } from "./custom/LoadingScreen";
 
 export const Page = (): React.ReactElement => {
   const [showLoading, setShowLoading] = useState<boolean>(true);

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Introducing } from "./Introducing";
 import { ArrowRight } from "lucide-react";
 import { TopBar } from "./TopBar";
-import { CustomButton } from "./ui/CustomButton";
+import { CustomButton } from "./custom/CustomButton";
 
 export const Home = (): React.ReactElement => {
   const [part1, setPart1] = useState<string>("");

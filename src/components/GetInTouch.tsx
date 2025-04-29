@@ -1,7 +1,7 @@
 import { getPortfolioRepoData } from "@/api";
 import { Star, GitFork, Mail } from "lucide-react";
 import { useEffect, useState } from "react";
-import { CustomButton } from "./ui/CustomButton";
+import { CustomButton } from "./custom/CustomButton";
 
 export const GetInTouch = (): React.ReactElement => {
   const [data, setData] = useState<{

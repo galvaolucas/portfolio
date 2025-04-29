@@ -27,7 +27,7 @@ export default function ThemeSwitcher() {
     <div
       onClick={toggleTheme}
       className={`w-16 h-8 flex items-center rounded-full p-1 cursor-pointer transition-colors duration-300 ease-in-out
-      ${darkMode ? "bg-penn-blue" : "bg-sun"}`}
+      ${darkMode ? "bg-blue-800" : "bg-blue-100"}`}
     >
       <div
         className={`bg-white w-6 h-6 rounded-full shadow-md transform transition-transform duration-300 ease-in-out
