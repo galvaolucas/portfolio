@@ -1,16 +1,18 @@
 import { client } from "@/lib/sanity/client";
-import { useEffect, useState } from "react";
 import { PortableText, PortableTextComponents } from "@portabletext/react";
 import { useParams } from "react-router-dom";
-import { Post as PostType } from "@/types/types";
 import { BlogTopbar } from "./BlogTopbar";
 import { Layout } from "../custom/Layout";
 import type { TypedObject } from "@portabletext/types";
 import { useQuery } from "@tanstack/react-query";
 import { LoadingDots } from "../custom/LoadingDots";
+import { useTheme } from "@/hooks/useTheme";
+import { twMerge } from "tailwind-merge";
 
 export const Post = () => {
   const { slug } = useParams();
+  const theme = useTheme();
+  const isDarkMode = theme === "dark";
 
   const fetchPost = async () => {
     const query = `*[_type == "post" && slug.current == $slug][0]{
@@ -45,9 +47,14 @@ export const Post = () => {
   return (
     <Layout>
       <BlogTopbar />
-      <div className="flex flex-col px-64 py-16 gap-4">
+      <div className="flex flex-col px-6 md:px-64 py-6 md:py-16 gap-4">
         <div className="flex flex-row gap-4 items-center">
-          <div className="p-2 bg-white font-medium rounded-full w-fit text-xs">
+          <div
+            className={twMerge(
+              "p-1 font-medium rounded-md w-fit text-xs",
+              isDarkMode ? "text-black bg-white" : "bg-dark-purple text-white",
+            )}
+          >
             {data?.genre?.toUpperCase()}
           </div>
           <div className="text-sm text-gray-400">
@@ -55,7 +62,9 @@ export const Post = () => {
           </div>
         </div>
         <div className="flex flex-col gap-4">
-          <h1 className="text-4xl font-bold dark:text-white">{data?.title}</h1>
+          <h1 className="text-4xl font-bold text-black dark:text-white">
+            {data?.title}
+          </h1>
           <span className="text-gray-800 dark:text-gray-200 text-lg font-medium">
             {data?.subtitle}
           </span>
@@ -78,8 +87,6 @@ const Body = ({
 }): React.ReactElement | null => {
   if (!body) return null;
 
-  console.log(body);
-
   const components: PortableTextComponents = {
     block: {
       h1: ({ children }) => (
@@ -91,7 +98,9 @@ const Body = ({
         </h3>
       ),
       h5: ({ children }) => (
-        <h5 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mt-8">{children}</h5>
+        <h5 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mt-8">
+          {children}
+        </h5>
       ),
     },
     list: ({ children, value }) => {
