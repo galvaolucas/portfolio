@@ -62,22 +62,34 @@ export const Experience = (): React.ReactElement => {
                       target="_blank"
                       href={WORK_EXPERIENCE[experienceCard].companyUrl}
                     >
-                      <MoveUpRight className="w-5 md:w-6" style={{ color: colors[experienceCard] }} />
+                      <MoveUpRight
+                        className="w-5 md:w-6"
+                        style={{ color: colors[experienceCard] }}
+                      />
                     </a>
                   </div>
                   <div className="border border-t-0 border-b-[0.5px] border-gray-500"></div>
                 </div>
                 <div className="text-gray-500 text-xs md:text-sm flex flex-row gap-2 items-center">
-                  <MapPin className="w-5 md:w-6"  style={{ color: colors[experienceCard] }} />
+                  <MapPin
+                    className="w-5 md:w-6"
+                    style={{ color: colors[experienceCard] }}
+                  />
                   {WORK_EXPERIENCE[experienceCard].location}
                 </div>
                 <div className="text-gray-500 text-xs md:text-sm flex flex-row gap-2 items-center">
-                  <CalendarClock className="w-5 md:w-6" style={{ color: colors[experienceCard] }} />
+                  <CalendarClock
+                    className="w-5 md:w-6"
+                    style={{ color: colors[experienceCard] }}
+                  />
                   {WORK_EXPERIENCE[experienceCard].date}
                 </div>
                 <div className="text-gray-500 text-xs md:text-sm flex flex-row gap-2 items-start text-justify h-fit">
                   <div>
-                    <Briefcase className="w-5 md:w-6" style={{ color: colors[experienceCard] }} />
+                    <Briefcase
+                      className="w-5 md:w-6"
+                      style={{ color: colors[experienceCard] }}
+                    />
                   </div>
                   <div className="overflow-y-scroll h-60">
                     {WORK_EXPERIENCE[experienceCard].description.join(" ")}
@@ -90,7 +102,10 @@ export const Experience = (): React.ReactElement => {
                 </div>
                 <div className="flex md:hidden text-gray-500 text-xs flex-row gap-2 items-start text-justify">
                   <div>
-                    <Code className="w-5 md:w-6" style={{ color: colors[experienceCard] }} />
+                    <Code
+                      className="w-5 md:w-6"
+                      style={{ color: colors[experienceCard] }}
+                    />
                   </div>
                   {WORK_EXPERIENCE[experienceCard].stack.join(", ")}.
                 </div>
@@ -133,7 +148,7 @@ const Panel = ({
   children: React.ReactElement;
 }): React.ReactElement => {
   return (
-    <div className="relative w-full min-h-full border rounded-md p-4 border-midnight md:border-border-default bg-layer-transparent md:bg-layer-transparent/30">
+    <div className="relative w-full min-h-full border rounded-md p-4 border-midnight md:border-border-default bg-transparent md:bg-layer-transparent md:bg-layer-transparent/30">
       {children}
     </div>
   );
@@ -173,15 +188,15 @@ const Tabs = ({
 
       <span
         className={twMerge(
-          "relative z-10 transition-all ease-in-out font-medium text-sm md:text-base text-center md:text-start"
+          "relative z-10 transition-all ease-in-out font-medium text-sm md:text-base text-center md:text-start",
         )}
         style={{
           color:
             isActive && isMobile
               ? color
               : isActive && !isMobile
-              ? "#FFFFFF"
-              : "#586d8c",
+                ? "#FFFFFF"
+                : "#586d8c",
         }}
       >
         {name}
@@ -234,7 +249,7 @@ const Arrows = ({
           onClick={backward}
           className={twMerge(
             "bg-pill-text text-midnight rounded-full",
-            isFirst && "opacity-40"
+            isFirst && "opacity-40",
           )}
         >
           <ArrowBigLeft width={32} height={32} />
@@ -243,7 +258,7 @@ const Arrows = ({
           onClick={forward}
           className={twMerge(
             "bg-pill-text text-midnight rounded-full",
-            isLast && "opacity-40"
+            isLast && "opacity-40",
           )}
         >
           <ArrowBigRight width={32} height={32} />

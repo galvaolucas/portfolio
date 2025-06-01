@@ -15,7 +15,7 @@ export const Home = (): React.ReactElement => {
     index: number,
     letters: string[],
     setText: React.Dispatch<React.SetStateAction<string>>,
-    callback?: () => void
+    callback?: () => void,
   ): void => {
     if (index < letters.length) {
       setText((prev) => prev + letters[index]);
@@ -50,7 +50,7 @@ export const Home = (): React.ReactElement => {
           <span className="text-8xl font-anton">{part2}</span>
         </div>
         <CustomButton iconRight={<ArrowRight />}>
-          <a href="#experience">About me</a>
+          <a href={`${import.meta.env.BASE_URL}/blog/who-am-i`}>About me</a>
         </CustomButton>
       </div>
     </div>
