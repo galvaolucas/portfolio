@@ -50,7 +50,7 @@ export const Home = (): React.ReactElement => {
           <span className="text-8xl font-anton">{part2}</span>
         </div>
         <CustomButton iconRight={<ArrowRight />}>
-          <a href={`${import.meta.env.BASE_URL}/blog/who-am-i`}>About me</a>
+          <a href={`${import.meta.env.BASE_URL}blog/who-am-i`}>About me</a>
         </CustomButton>
       </div>
     </div>
