@@ -62,17 +62,17 @@ export const Post = () => {
           </div>
         </div>
         <div className="flex flex-col gap-4">
-          <h1 className="text-4xl font-bold text-black dark:text-white">
+          <h1 className="text-2xl md:text-4xl font-bold text-black dark:text-white">
             {data?.title}
           </h1>
-          <span className="text-gray-800 dark:text-gray-200 text-lg font-medium">
+          <span className="text-gray-800 dark:text-gray-200 text-base md:text-lg font-medium">
             {data?.subtitle}
           </span>
         </div>
-        <div className="py-8">
+        <div className="py-4 md:py-8">
           <img className="rounded-lg" src={data?.imageUrl} alt={data?.title} />
         </div>
-        <div className="leading-7 font-medium text-gray-700 dark:text-white text-justify">
+        <div className="leading-7 font-medium text-gray-700 dark:text-white text-justify text-sm md:text-base">
           <Body body={data?.body} />
         </div>
       </div>

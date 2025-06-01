@@ -20,16 +20,18 @@ export const PostCard = ({ post }: { post: Post }): React.ReactElement => {
       </div>
       <div className="absolute right-0 left-0 z-10 bg-white h-[40%] p-4">
         <div className="flex flex-col h-full gap-4 items-start justify-between">
-          <div>
-            <span className="font-bold text-md text-gray-400">
+          <div className="overflow-hidden">
+            <span className="font-bold text-sm md:text-md text-gray-400">
               {post.genre.toUpperCase()}
             </span>
-            <h2 className="font-bold text-2xl text-black">{post.title}</h2>
-            <span className="font-medium text-sm text-dark-purple text-justify">
+            <h2 className="font-bold text-lg md:text-2xl text-black">
+              {post.title}
+            </h2>
+            <span className="font-medium text-xs md:text-sm text-dark-purple text-justify overflow-hidden">
               {post.subtitle}
             </span>
           </div>
-          <p className="text-gray-400 font-semibold text-md">
+          <p className="text-gray-400 font-semibold text-sm md:text-md">
             {date.toLocaleDateString("en-US", {
               day: "numeric",
               month: "long",
