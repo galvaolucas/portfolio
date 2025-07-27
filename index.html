@@ -6,11 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lucas Galvão - Portfólio</title>
     <script>
-        if (localStorage.getItem('color-theme') === 'dark') {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark')
-        }
+      if (localStorage.getItem("color-theme") === "dark") {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+    </script>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-KLY2T8185J"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-KLY2T8185J");
     </script>
   </head>
   <body>
