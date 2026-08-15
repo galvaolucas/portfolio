@@ -14,7 +14,7 @@ export const SITE = {
   /** Year the first line of professional code shipped — drives the "N years" stat. */
   since: 2020,
   headline: "I build web and mobile products that ship.",
-  bio: "Full-stack engineer working with multiple techonologies. I can help you to build cool things.",
+  bio: "Full-stack engineer working with multiple technologies. I can help you to build cool things.",
   email: EMAIL,
   emailUrl: composeUrl(
     "Hello from your portfolio",
