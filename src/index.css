@@ -1,62 +1,115 @@
-@import url('https://fonts.googleapis.com/css2?family=Anton&family=Gochi+Hand&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:wght@400;500;600&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+@theme {
+  /* Type ------------------------------------------------------------------ */
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  /* Surfaces — the site runs on a near-black canvas. ---------------------- */
+  --color-canvas: #09090b;
+  --color-surface: #101013;
+  --color-surface-raised: #17171b;
+  --color-line: #26262c;
+  --color-line-strong: #35353d;
+
+  /* Ink ------------------------------------------------------------------- */
+  --color-ink: #ededf0;
+  --color-ink-muted: #a0a0ab;
+  --color-ink-subtle: #6e6e79;
+
+  /* Accent — carried over from the previous design's violet. --------------- */
+  --color-accent: #a78bfa;
+  --color-accent-strong: #8b5cf6;
+  --color-accent-soft: #a78bfa1a;
+
+  /* Reading surface — the blog. Unlike the tokens above these are not fixed:
+     the values here are the light theme, and the `.dark` block below swaps
+     them. Utilities compile to `var(--color-paper)` and so follow the theme. */
+  --color-paper: #fbfbfc;
+  --color-paper-raised: #ffffff;
+  --color-paper-line: #e4e4e7;
+  --color-paper-ink: #18181b;
+  --color-paper-muted: #52525b;
+  --color-paper-subtle: #a1a1aa;
+  --color-paper-accent: #7c3aed;
+}
+
+/* Unlayered, so it outranks the `@layer theme` defaults above. */
+html:not(.dark) {
+  color-scheme: light;
+}
+
+.dark {
+  --color-paper: #09090b;
+  --color-paper-raised: #131316;
+  --color-paper-line: #26262c;
+  --color-paper-ink: #ededf0;
+  --color-paper-muted: #a0a0ab;
+  --color-paper-subtle: #6e6e79;
+  --color-paper-accent: #a78bfa;
+}
+
 :root {
-  font-family: Inter, Anton, Handlee, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-
+  /* Dark is the default; the blog's toggle is what opts into light. */
+  color-scheme: dark;
+  font-family: var(--font-sans);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-@theme {
-  --font-anton: Anton, sans-serif;
-  --font-gochi: Gochi Hand, sans-serif;
-  --font-inter: Inter, sans-serif;
-  --color-dark-purple: #28112B;
-  --color-eerie-black: #222222;
-  --color-indigo: #9883E5;
-  --color-dark-background: #101010;
-  --color-midnight: #0E1616;
-  --color-night: #171614;
-  --color-penn-blue: #111344;
-  --color-space-cadet: #2E294E;
-  --color-oxford-blue: #0B132B;
-  --color-russian-violet: #0B032D;
-  --color-isabelline: #F4F3EE;
-  --color-persian-pink: #F896D8;
-  --color-border-default: #1d2628;
-  --color-feint-text: #586d8c;
-  --color-layer-transparent: #14171caa;
-  --color-black: #0b1012;
-  --color-pill-text: #5eead4;
-  --color-pill-background: #2dd4bf1a;
-  --color-ice: #F5F5F7;
-  --color-sun: #FFC15E;
+html {
+  scroll-behavior: smooth;
 }
 
-.line-grow-animation {
-  width: 50%;
-  transition: width 1s ease-in-out;
+
+/* Anchor links land below the sticky header rather than under it. */
+[id] {
+  scroll-margin-top: 5rem;
 }
 
-.cursor-pencil {
-  cursor: url('/cursors/pencil-cursor.png') 0 0, auto;
+body {
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
 }
 
-.hideScroll {
-  -ms-overflow-style: none;  /* Internet Explorer 10+ */
-  scrollbar-width: none;  /* Firefox */
+::selection {
+  background-color: var(--color-accent-strong);
+  color: #ffffff;
 }
 
-.hideScroll::-webkit-scrollbar {
-  display: none;  /* Safari and Chrome */
+/* A single visible focus treatment for every interactive element. */
+:where(a, button, input, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 2px;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@utility hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+

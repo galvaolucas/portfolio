@@ -16,9 +16,15 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        cache: npm
+
     - name: Install and Build
       run: |
-        npm install
+        npm ci
         npm run build
       env:
         VITE_SANITY_PROJECT_ID: ${{ secrets.VITE_SANITY_PROJECT_ID }}

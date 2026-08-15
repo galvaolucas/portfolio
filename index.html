@@ -2,16 +2,40 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/logos/logo-black.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lucas Galvão - Portfólio</title>
+
+    <title>Lucas Galvão — Software Engineer</title>
+    <meta
+      name="description"
+      content="Lucas Galvão is a software engineer building web and mobile products with TypeScript, React and Node. Work history, stack and writing."
+    />
+    <meta name="author" content="Lucas Galvão" />
+    <meta name="theme-color" content="#09090b" />
+    <link rel="canonical" href="https://galvaolucas.github.io/portfolio/" />
+    <link rel="icon" type="image/png" href="/portfolio/logos/logo-black.png" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Lucas Galvão — Software Engineer" />
+    <meta
+      property="og:description"
+      content="Software engineer building web and mobile products with TypeScript, React and Node."
+    />
+    <meta property="og:url" content="https://galvaolucas.github.io/portfolio/" />
+    <meta name="twitter:card" content="summary" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Applies the stored theme before first paint so the blog never flashes.
+         Dark is the default: the landing page is dark, so light has to be an
+         explicit opt-in or navigating to the blog flashes white. -->
     <script>
-      if (localStorage.getItem("color-theme") === "dark") {
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-      }
+      document.documentElement.classList.toggle(
+        "dark",
+        localStorage.getItem("color-theme") !== "light",
+      );
     </script>
+
     <!-- Google tag (gtag.js) -->
     <script
       async

@@ -1,46 +1,46 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Moon, Sun } from "lucide-react";
+import { cn } from "@/lib/utils";
 
-export default function ThemeSwitcher() {
-  const [darkMode, setDarkMode] = useState<boolean>(false);
+const STORAGE_KEY = "color-theme";
+
+/** Dark unless light was explicitly chosen — matches the pre-paint script. */
+const readStoredTheme = (): boolean =>
+  localStorage.getItem(STORAGE_KEY) !== "light";
+
+export default function ThemeSwitcher(): React.ReactElement {
+  const [darkMode, setDarkMode] = useState(readStoredTheme);
 
   useEffect(() => {
-    const storedTheme = localStorage.getItem("color-theme");
-    if (storedTheme === "dark") {
-      setDarkMode(true);
-      document.documentElement.classList.add("dark");
-    }
-  }, []);
-
-  const toggleTheme = () => {
-    if (darkMode) {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("color-theme", "light");
-    } else {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("color-theme", "dark");
-    }
-    setDarkMode(!darkMode);
-  };
+    document.documentElement.classList.toggle("dark", darkMode);
+    localStorage.setItem(STORAGE_KEY, darkMode ? "dark" : "light");
+  }, [darkMode]);
 
   return (
-    <div
-      onClick={toggleTheme}
-      className={`w-16 h-8 flex items-center rounded-full p-1 cursor-pointer transition-colors duration-300 ease-in-out
-      ${darkMode ? "bg-blue-800" : "bg-blue-100"}`}
+    <button
+      type="button"
+      role="switch"
+      aria-checked={darkMode}
+      aria-label="Toggle dark mode"
+      onClick={() => setDarkMode((previous) => !previous)}
+      className={cn(
+        "flex h-7 w-12 cursor-pointer items-center rounded-full p-1 transition-colors duration-300",
+        darkMode ? "bg-gray-700" : "bg-gray-200",
+      )}
     >
-      <div
-        className={`bg-white w-6 h-6 rounded-full shadow-md transform transition-transform duration-300 ease-in-out
-        ${darkMode ? "translate-x-8" : "translate-x-0"}`}
+      <span
+        aria-hidden
+        className={cn(
+          "flex h-5 w-5 items-center justify-center rounded-full bg-white shadow-sm transition-transform duration-300",
+          darkMode ? "translate-x-5" : "translate-x-0",
+        )}
       >
-        <div className="flex items-center justify-center h-full">
-          {darkMode ? (
-            <Moon className="h-4 w-4 text-blue-500 transition-colors duration-300 ease-in-out" />
-          ) : (
-            <Sun className="h-4 w-4 text-yellow-500 transition-colors duration-300 ease-in-out" />
-          )}
-        </div>
-      </div>
-    </div>
+        {darkMode ? (
+          <Moon className="h-3 w-3 text-gray-700" />
+        ) : (
+          <Sun className="h-3 w-3 text-amber-500" />
+        )}
+      </span>
+    </button>
   );
 }

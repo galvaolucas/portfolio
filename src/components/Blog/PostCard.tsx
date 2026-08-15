@@ -1,45 +1,53 @@
-import { Post } from "@/types/types";
-import { useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
+import type { Post } from "@/types";
 
-export const PostCard = ({ post }: { post: Post }): React.ReactElement => {
-  const date = new Date(post.publishedAt);
-  const location = useLocation();
+const formatDate = (value: string) =>
+  new Date(value).toLocaleDateString("en-US", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
 
-  return (
-    <a
-      className="relative bg-white h-120 rounded-lg overflow-hidden cursor-pointer shadow-lg"
-      target="_self"
-      href={`${location.pathname}${post.slug.current}`}
+export const PostCard = ({ post }: { post: Post }): React.ReactElement => (
+  <article>
+    {/*
+      A router `Link`, not an `<a href={location.pathname + slug}>`: the old
+      version depended on the current path carrying a trailing slash and
+      produced `/blogmy-post` when it did not. `to` is resolved against the
+      router basename, so the deploy path is applied exactly once.
+    */}
+    <Link
+      to={`/blog/${post.slug.current}`}
+      className="group flex flex-col gap-5 border-b border-paper-line py-7 sm:flex-row sm:items-start sm:gap-7"
     >
-      <div className="h-[60%] transform transition-transform duration-300 ease-in-out hover:scale-110">
-        <img
-          src={post.imageUrl}
-          alt={post.title}
-          className="w-full h-full object-cover"
-        />
-      </div>
-      <div className="absolute right-0 left-0 z-10 bg-white h-[40%] p-4">
-        <div className="flex flex-col h-full gap-4 items-start justify-between">
-          <div className="overflow-hidden">
-            <span className="font-bold text-sm md:text-md text-gray-400">
-              {post.genre.toUpperCase()}
-            </span>
-            <h2 className="font-bold text-lg md:text-2xl text-black">
-              {post.title}
-            </h2>
-            <span className="font-medium text-xs md:text-sm text-dark-purple text-justify overflow-hidden">
-              {post.subtitle}
-            </span>
-          </div>
-          <p className="text-gray-400 font-semibold text-sm md:text-md">
-            {date.toLocaleDateString("en-US", {
-              day: "numeric",
-              month: "long",
-              year: "numeric",
-            })}
-          </p>
+      {post.imageUrl && (
+        <div className="w-full shrink-0 overflow-hidden rounded-lg bg-paper-raised sm:h-28 sm:w-44">
+          <img
+            src={post.imageUrl}
+            alt=""
+            aria-hidden
+            loading="lazy"
+            decoding="async"
+            className="h-44 w-full object-cover transition-transform duration-500 group-hover:scale-105 sm:h-28"
+          />
         </div>
+      )}
+
+      <div className="min-w-0 flex-1">
+        <p className="flex items-center gap-2 font-mono text-[11px] tracking-wide text-paper-subtle uppercase">
+          <span className="text-paper-accent">{post.genre}</span>
+          <span aria-hidden>·</span>
+          <time dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
+        </p>
+
+        <h2 className="mt-2 text-lg font-semibold tracking-tight text-balance text-paper-ink transition-colors group-hover:text-paper-accent sm:text-xl">
+          {post.title}
+        </h2>
+
+        <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-paper-muted text-pretty">
+          {post.subtitle}
+        </p>
       </div>
-    </a>
-  );
-};
+    </Link>
+  </article>
+);

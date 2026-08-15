@@ -1,115 +1,204 @@
-import { client } from "@/lib/sanity/client";
-import { PortableText, PortableTextComponents } from "@portabletext/react";
-import { useParams } from "react-router-dom";
-import { BlogTopbar } from "./BlogTopbar";
-import { Layout } from "../custom/Layout";
-import type { TypedObject } from "@portabletext/types";
+import { Link, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import { PortableText, type PortableTextComponents } from "@portabletext/react";
+import { ArrowLeft } from "lucide-react";
+import { client } from "@/lib/sanity/client";
+import { readingTime } from "@/lib/portableText";
+import type { Post as TPost } from "@/types";
+import { BlogLayout } from "./BlogLayout";
 import { LoadingDots } from "../custom/LoadingDots";
-import { useTheme } from "@/hooks/useTheme";
-import { twMerge } from "tailwind-merge";
+
+const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]{
+  _id, title, subtitle, genre, publishedAt, "imageUrl": image.asset->url, body
+}`;
 
 export const Post = () => {
   const { slug } = useParams();
-  const theme = useTheme();
-  const isDarkMode = theme === "dark";
 
-  const fetchPost = async () => {
-    const query = `*[_type == "post" && slug.current == $slug][0]{
-        _id,
-        title,
-        subtitle,
-        genre,
-        publishedAt,
-        "imageUrl": image.asset->url,
-        body
-      }`;
-    const params = { slug };
-    return await client.fetch(query, params);
-  };
-
-  const { isLoading, data } = useQuery({
+  const { isPending, isError, data } = useQuery<TPost | null>({
     queryKey: ["post", slug],
-    queryFn: fetchPost,
+    queryFn: () => client.fetch(POST_QUERY, { slug }),
   });
 
-  if (isLoading) {
+  if (isPending) {
     return (
-      <Layout>
-        <BlogTopbar />
-        <div className="w-full mt-60 flex items-center justify-center">
+      <BlogLayout>
+        <div className="flex justify-center py-32">
           <LoadingDots />
         </div>
-      </Layout>
+      </BlogLayout>
+    );
+  }
+
+  // A bad slug otherwise renders an article with every field blank.
+  if (isError || !data) {
+    return (
+      <BlogLayout>
+        <div className="py-24 text-center">
+          <p className="font-semibold text-paper-ink">
+            {isError ? "Could not load this post" : "Post not found"}
+          </p>
+          <p className="mt-2 text-sm text-paper-muted">
+            {isError
+              ? "Something went wrong reaching the CMS."
+              : "This post may have been moved or unpublished."}
+          </p>
+          <BackLink className="mt-8" />
+        </div>
+      </BlogLayout>
     );
   }
 
   return (
-    <Layout>
-      <BlogTopbar />
-      <div className="flex flex-col px-6 md:px-64 py-6 md:py-16 gap-4">
-        <div className="flex flex-row gap-4 items-center">
-          <div
-            className={twMerge(
-              "p-1 font-medium rounded-md w-fit text-xs",
-              isDarkMode ? "text-black bg-white" : "bg-dark-purple text-white",
-            )}
-          >
-            {data?.genre?.toUpperCase()}
-          </div>
-          <div className="text-sm text-gray-400">
-            {new Date(data?.publishedAt ?? "")?.toLocaleDateString()}
-          </div>
-        </div>
-        <div className="flex flex-col gap-4">
-          <h1 className="text-2xl md:text-4xl font-bold text-black dark:text-white">
-            {data?.title}
+    <BlogLayout>
+      <BackLink className="mb-10" />
+
+      <article>
+        <header>
+          <p className="flex flex-wrap items-center gap-2 font-mono text-[11px] tracking-wide text-paper-subtle uppercase">
+            <span className="text-paper-accent">{data.genre}</span>
+            <span aria-hidden>·</span>
+            <time dateTime={data.publishedAt}>
+              {new Date(data.publishedAt).toLocaleDateString("en-US", {
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+              })}
+            </time>
+            <span aria-hidden>·</span>
+            <span>{readingTime(data.body)} min read</span>
+          </p>
+
+          <h1 className="mt-4 text-3xl font-semibold tracking-tight text-balance text-paper-ink sm:text-4xl">
+            {data.title}
           </h1>
-          <span className="text-gray-800 dark:text-gray-200 text-base md:text-lg font-medium">
-            {data?.subtitle}
-          </span>
+
+          {data.subtitle && (
+            <p className="mt-4 text-lg leading-relaxed text-paper-muted text-pretty">
+              {data.subtitle}
+            </p>
+          )}
+        </header>
+
+        {data.imageUrl && (
+          <img
+            src={data.imageUrl}
+            alt=""
+            aria-hidden
+            className="my-10 w-full rounded-xl border border-paper-line object-cover"
+          />
+        )}
+
+        <div className="text-[15px] leading-[1.75] text-paper-muted sm:text-base">
+          <PortableText value={data.body} components={components} />
         </div>
-        <div className="py-4 md:py-8">
-          <img className="rounded-lg" src={data?.imageUrl} alt={data?.title} />
-        </div>
-        <div className="leading-7 font-medium text-gray-700 dark:text-white text-justify text-sm md:text-base">
-          <Body body={data?.body} />
-        </div>
-      </div>
-    </Layout>
+      </article>
+
+      <footer className="mt-16 border-t border-paper-line pt-8">
+        <BackLink />
+      </footer>
+    </BlogLayout>
   );
 };
 
-const Body = ({
-  body,
-}: {
-  body: TypedObject[] | undefined;
-}): React.ReactElement | null => {
-  if (!body) return null;
+const BackLink = ({ className }: { className?: string }): React.ReactElement => (
+  <Link
+    to="/blog"
+    className={`inline-flex items-center gap-2 text-sm text-paper-muted transition-colors hover:text-paper-ink ${className ?? ""}`}
+  >
+    <ArrowLeft size={15} aria-hidden />
+    All posts
+  </Link>
+);
 
-  const components: PortableTextComponents = {
-    block: {
-      h1: ({ children }) => (
-        <h1 className="text-2xl font-bold my-2">{children}</h1>
-      ),
-      h3: ({ children }) => (
-        <h3 className="text-2xl font-semibold text-gray-800 dark:text-gray-200 mt-8 my-2">
+/**
+ * Covers every style Sanity can emit, not just the ones current posts happen to
+ * use — previously `normal` and `h2` had no styling at all, so body paragraphs
+ * rendered with no spacing between them.
+ */
+const components: PortableTextComponents = {
+  block: {
+    normal: ({ children }) => <p className="my-5">{children}</p>,
+    h1: ({ children }) => (
+      <h2 className="mt-12 mb-4 text-2xl font-semibold tracking-tight text-paper-ink">
+        {children}
+      </h2>
+    ),
+    h2: ({ children }) => (
+      <h2 className="mt-12 mb-4 text-2xl font-semibold tracking-tight text-paper-ink">
+        {children}
+      </h2>
+    ),
+    h3: ({ children }) => (
+      <h3 className="mt-10 mb-3 text-xl font-semibold tracking-tight text-paper-ink">
+        {children}
+      </h3>
+    ),
+    h4: ({ children }) => (
+      <h4 className="mt-8 mb-2 text-lg font-semibold text-paper-ink">
+        {children}
+      </h4>
+    ),
+    blockquote: ({ children }) => (
+      <blockquote className="my-6 border-l-2 border-paper-accent pl-5 text-paper-ink italic">
+        {children}
+      </blockquote>
+    ),
+  },
+  list: {
+    bullet: ({ children }) => (
+      <ul className="my-5 list-disc space-y-2 pl-5 marker:text-paper-subtle">
+        {children}
+      </ul>
+    ),
+    number: ({ children }) => (
+      <ol className="my-5 list-decimal space-y-2 pl-5 marker:text-paper-subtle">
+        {children}
+      </ol>
+    ),
+  },
+  listItem: {
+    bullet: ({ children }) => <li className="pl-1">{children}</li>,
+    number: ({ children }) => <li className="pl-1">{children}</li>,
+  },
+  marks: {
+    strong: ({ children }) => (
+      <strong className="font-semibold text-paper-ink">{children}</strong>
+    ),
+    em: ({ children }) => <em className="italic">{children}</em>,
+    code: ({ children }) => (
+      <code className="rounded border border-paper-line bg-paper-raised px-1.5 py-0.5 font-mono text-[0.85em] text-paper-ink">
+        {children}
+      </code>
+    ),
+    link: ({ children, value }) => {
+      const href = (value as { href?: string } | undefined)?.href ?? "#";
+      const isExternal = /^https?:\/\//.test(href);
+      return (
+        <a
+          href={href}
+          target={isExternal ? "_blank" : undefined}
+          rel={isExternal ? "noopener noreferrer" : undefined}
+          className="text-paper-accent underline decoration-paper-accent/40 underline-offset-2 transition-colors hover:decoration-paper-accent"
+        >
           {children}
-        </h3>
-      ),
-      h5: ({ children }) => (
-        <h5 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mt-8">
-          {children}
-        </h5>
-      ),
+        </a>
+      );
     },
-    list: ({ children, value }) => {
-      if (value._type === "@list") {
-        return <ul className="list-disc ml-6 space-y-1">{children}</ul>;
-      }
-      return <ol className="list-decimal ml-6 space-y-1">{children}</ol>;
+  },
+  types: {
+    image: ({ value }) => {
+      const url = (value as { asset?: { url?: string } })?.asset?.url;
+      if (!url) return null;
+      return (
+        <img
+          src={url}
+          alt=""
+          aria-hidden
+          loading="lazy"
+          className="my-8 w-full rounded-lg border border-paper-line"
+        />
+      );
     },
-  };
-
-  return <PortableText value={body} components={components} />;
+  },
 };

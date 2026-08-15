@@ -1,51 +1,39 @@
-import { useIsMobile } from "@/hooks/useIsMobile";
-import ThemeSwitcher from "../ThemeSwitcher";
-import logoWhite from "@public/logos/logo-white.png";
-import logoBlack from "@public/logos/logo-black.png";
-import { twMerge } from "tailwind-merge";
-import { useTheme } from "@/hooks/useTheme";
-import { Input } from "../ui/input";
-import { SearchIcon } from "lucide-react";
+import { useEffect, useMemo } from "react";
+import { ArrowLeft, SearchIcon } from "lucide-react";
 import { debounce } from "lodash";
-import { useMemo } from "react";
+import { useTheme } from "@/hooks/useTheme";
+import { ROUTES, SITE } from "@/data/site";
+import ThemeSwitcher from "../ThemeSwitcher";
+import logoWhite from "@/assets/logo-white.png";
+import logoBlack from "@/assets/logo-black.png";
 
 const Search = ({
   setFilter,
 }: {
-  setFilter: (filter: string) => void;
+  setFilter: (value: string) => void;
 }): React.ReactElement => {
-  const theme = useTheme();
-  const isDarkMode = theme === "dark";
-  const debouncedSetFilter = useMemo(
-    () =>
-      debounce((value: string) => {
-        setFilter(value);
-      }, 300),
-    [],
+  const debounced = useMemo(
+    () => debounce((value: string) => setFilter(value), 300),
+    [setFilter],
   );
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    debouncedSetFilter(e.target.value);
-  };
+  // Without this a keystroke in the last 300ms before unmount still fires.
+  useEffect(() => () => debounced.cancel(), [debounced]);
 
   return (
-    <div className="relative flex flex-row gap-2">
-      <div className="absolute left-2 top-[8px]">
-        <SearchIcon
-          className={twMerge(isDarkMode ? "text-black" : "text-white")}
-          width={20}
-          height={20}
-        />
-      </div>
-      <Input
-        placeholder="Search by tag or title"
-        className={twMerge(
-          "w-60 shadow-sm border-1 border-gray-200 focus:border-gray-400 focus:ring-transparent focus:shadow-none pl-8",
-          isDarkMode
-            ? "bg-white text-black placeholder:text-black"
-            : "bg-black text-white placeholder:text-white",
-        )}
-        onChange={onChange}
+    <div className="relative w-full sm:w-56">
+      <SearchIcon
+        aria-hidden
+        width={15}
+        height={15}
+        className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-paper-subtle"
+      />
+      <input
+        type="search"
+        aria-label="Search posts"
+        placeholder="Search posts"
+        onChange={(event) => debounced(event.target.value)}
+        className="h-9 w-full rounded-lg border border-paper-line bg-paper-raised pr-3 pl-9 text-sm text-paper-ink transition-colors outline-none placeholder:text-paper-subtle focus:border-paper-accent"
       />
     </div>
   );
@@ -54,30 +42,36 @@ const Search = ({
 export const BlogTopbar = ({
   setFilter,
 }: {
-  setFilter?: (arg: string) => void;
+  setFilter?: (value: string) => void;
 }): React.ReactElement => {
-  const { isMobile } = useIsMobile();
-  const theme = useTheme();
-  const isDarkMode = theme === "dark";
+  const isDarkMode = useTheme() === "dark";
 
   return (
-    <div
-      className={twMerge(
-        "h-16 flex flex-row items-center justify-between px-4 md:px-60 py-2 bg-white dark:bg-black shadow-lg",
-      )}
-    >
-      <div>
-        <img
-          src={isDarkMode ? logoWhite : logoBlack}
-          alt="logo"
-          width={isMobile ? 40 : 50}
-          height={isMobile ? 40 : 50}
-        />
+    <header className="sticky top-0 z-50 border-b border-paper-line bg-paper/85 backdrop-blur-md">
+      <div className="mx-auto flex w-full max-w-3xl items-center justify-between gap-4 px-6 py-3">
+        <a
+          href={ROUTES.home}
+          className="group flex shrink-0 items-center gap-2.5 text-sm font-medium text-paper-ink"
+          aria-label={`Back to ${SITE.name}'s portfolio`}
+        >
+          <img
+            src={isDarkMode ? logoWhite : logoBlack}
+            alt=""
+            aria-hidden
+            width={28}
+            height={28}
+          />
+          <span className="hidden items-center gap-1.5 text-paper-muted transition-colors group-hover:text-paper-ink sm:flex">
+            <ArrowLeft size={14} aria-hidden />
+            Portfolio
+          </span>
+        </a>
+
+        <div className="flex flex-1 items-center justify-end gap-3">
+          {setFilter && <Search setFilter={setFilter} />}
+          <ThemeSwitcher />
+        </div>
       </div>
-      <div className="flex flex-row gap-4 items-center justify-center">
-        {!isMobile && setFilter && <Search setFilter={setFilter} />}
-        <ThemeSwitcher />
-      </div>
-    </div>
+    </header>
   );
 };

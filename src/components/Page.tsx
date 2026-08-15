@@ -1,72 +1,64 @@
-import { twMerge } from "tailwind-merge";
-import { Home } from "./Home";
-import { useEffect, useState } from "react";
-import { Stack } from "./Stack";
-import { Experience } from "./Experience";
-import { GetInTouch } from "./GetInTouch";
-import { LoadingScreen } from "./custom/LoadingScreen";
+import { useEffect } from "react";
+import { Nav } from "./layout/Nav";
+import { Footer } from "./layout/Footer";
+import { Section } from "./layout/Section";
+import { Hero } from "./home/Hero";
+import { Experience } from "./home/Experience";
+import { Stack } from "./home/Stack";
+import { Contact } from "./home/Contact";
 
-export const Page = (): React.ReactElement => {
-  const [showLoading, setShowLoading] = useState<boolean>(true);
-
+/**
+ * The browser resolves a `#work` fragment before React has rendered anything,
+ * so a shared deep link lands at the top. Re-run the scroll once mounted.
+ */
+const useHashScrollOnMount = () => {
   useEffect(() => {
-    const timer = setTimeout(() => setShowLoading(false), 5000);
-    return () => clearTimeout(timer);
-  }, []);
+    const id = window.location.hash.slice(1);
+    if (!id) return;
 
-  return (
-    <div className="w-screen h-screen overflow-y-scroll snap-y snap-proximity scroll-smooth">
-      <BaseSection id="home" className="bg-black relative">
-        <>
-          <div
-            className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
-            style={{ opacity: showLoading ? 1 : 0 }}
-          >
-            <LoadingScreen />
-          </div>
-          <div
-            className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
-            style={{ opacity: showLoading ? 0 : 1 }}
-          >
-            <Home />
-          </div>
-        </>
-      </BaseSection>
-      {!showLoading && (
-        <>
-          <BaseSection id="stack" className="bg-black">
-            <Stack />
-          </BaseSection>
-          <BaseSection className="bg-black" id="experience">
-            <Experience />
-          </BaseSection>
-          <BaseSection className="bg-black" id="getintouch">
-            <GetInTouch />
-          </BaseSection>
-        </>
-      )}
-    </div>
-  );
+    const frame = requestAnimationFrame(() => {
+      // Instant, not smooth: on a deep link the reader should arrive already
+      // there, not watch the page scroll past everything above it.
+      document
+        .getElementById(id)
+        ?.scrollIntoView({ block: "start", behavior: "instant" });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, []);
 };
 
-const BaseSection = ({
-  id,
-  children,
-  className,
-}: {
-  id: string;
-  children: React.ReactElement;
-  className?: string;
-}): React.ReactElement => {
+export const Page = (): React.ReactElement => {
+  useHashScrollOnMount();
+
   return (
-    <section
-      id={id}
-      className={twMerge(
-        "h-screen snap-start flex items-center justify-center px-4 md:px-12 overflow-x-hidden",
-        className
-      )}
-    >
-      {children}
-    </section>
+    <>
+      <Nav />
+
+      <main>
+        <Hero />
+
+        <Section
+          id="work"
+          title="Work"
+          description="Five years across product startups — building things from scratch or improving legacy systems."
+        >
+          <Experience />
+        </Section>
+
+        <Section
+          id="stack"
+          title="Stack"
+          description="Tools I reach for daily, and the ones I reach for occasionally."
+        >
+          <Stack />
+        </Section>
+
+        <Section id="contact" title="Contact">
+          <Contact />
+        </Section>
+      </main>
+
+      <Footer />
+    </>
   );
 };
